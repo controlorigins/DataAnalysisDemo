@@ -1,15 +1,15 @@
 
-Imports System.Reflection
 Imports System.ComponentModel
+Imports System.Reflection
 Imports System.Web.Script.Serialization
 
 Public Class AjaxCallSignature
     Public Sub New(context As HttpContext)
-                            Dim qItem As String = Nothing 
+        Dim qItem As String = Nothing
 
         args = New Dictionary(Of String, Object)()
         method = String.Empty
-        Dim nullKeyParameter As String  = context.Request.QueryString(qItem)
+        Dim nullKeyParameter As String = context.Request.QueryString(qItem)
 
         If New List(Of String)() From { _
             "POST", _

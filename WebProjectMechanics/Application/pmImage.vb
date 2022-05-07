@@ -31,7 +31,7 @@ Public Class pmImage
         Dim myImage = Image.FromFile(HttpContext.Current.Server.MapPath(SourceURL))
 
 
-        Return VBOverlay(myImage )
+        Return VBOverlay(myImage)
     End Function
 
     Public Sub ProcessRequest(context As HttpContext)
@@ -193,7 +193,7 @@ Public Class pmImage
     ' Draw text directly onto an image (scaled for best-fit)
     ' Written to be called from a module (just on the form for simplicity)
     Public Function VBOverlay(ByVal img As Image) As Bitmap
-        If OverlayText > "" AndAlso PercentFill > 0 Then
+        If OverlayText > String.Empty AndAlso PercentFill > 0 Then
             ' create bitmap and graphics used for drawing
             ' "clone" image but use 24RGB format
             Dim bmp As New Bitmap(img.Width, img.Height, PixelFormat.Format24bppRgb)

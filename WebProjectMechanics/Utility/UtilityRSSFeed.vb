@@ -1,5 +1,5 @@
-Imports System.Xml
 Imports System.Text
+Imports System.Xml
 
 Public Class UtilityRSSFeed
     Implements IDisposable
@@ -29,7 +29,7 @@ Public Class UtilityRSSFeed
           "http://" & ActiveSite.SiteURL, _
           wpm_HostName & " Menu in RSS", _
           "Copyright " & wpm_HostName, _
-          "webmaster@" & Replace(HttpContext.Current.Request.ServerVariables("SERVER_NAME"), "http://", ""))
+          "webmaster@" & Replace(HttpContext.Current.Request.ServerVariables("SERVER_NAME"), "http://", String.Empty))
         ItemCount = 0
         Dim myDateComp As LocationModifiedDateCompare = New LocationModifiedDateCompare() With {.Direction = UtilitySortDirection.DESC}
         ActiveSite.LocationList.Sort(myDateComp)
@@ -62,7 +62,7 @@ Public Class UtilityRSSFeed
           "http://" & ActiveSite.SiteURL, _
           wpm_HostName & " Menu in RSS", _
           "Copyright " & wpm_HostName, _
-          "webmaster@" & Replace(HttpContext.Current.Request.ServerVariables("SERVER_NAME"), "http://", ""))
+          "webmaster@" & Replace(HttpContext.Current.Request.ServerVariables("SERVER_NAME"), "http://", String.Empty))
         ItemCount = 0
         Dim myDateComp As LocationModifiedDateCompare = New LocationModifiedDateCompare() With {.Direction = UtilitySortDirection.DESC}
         ActiveSite.LocationList.Sort(myDateComp)
@@ -87,7 +87,7 @@ Public Class UtilityRSSFeed
 
 
     Public Sub WriteRSSBlogDocument(ByVal TimeScope As String)
-        Dim ArticleSummary As String = ""
+        Dim ArticleSummary As String = String.Empty
         Dim sSQL As String
         writer.WriteStartDocument()
         writer.WriteStartElement("rss")
@@ -171,7 +171,7 @@ Public Class UtilityRSSFeed
     Public Shared Function CleanDBString(ByVal sString As String) As String
         Dim sReturn As String
         If IsDBNull(sString) Then
-            sReturn = ""
+            sReturn = String.Empty
         Else
             sReturn = sString
         End If
@@ -185,7 +185,7 @@ Public Class UtilityRSSFeed
         strInput = Replace(strInput, """", "&quot;")
         strInput = Replace(strInput, ">", "&gt;")
         strInput = Replace(strInput, "<", "&lt;")
-        strInput = Replace(strInput, "~", "")
+        strInput = Replace(strInput, "~", String.Empty)
 
         ApplyXMLFormatting = strInput
     End Function

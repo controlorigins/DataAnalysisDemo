@@ -141,7 +141,7 @@ Public Class Article
         If IsNumeric(reqPageID) Then
             Dim artSQL As String = (String.Format("SELECT [article].[ArticleID],[article].[Title],[article].[Description],[article].[ArticleBody],[article].[ModifiedDT],[page].[pageid],[page].[pagename],[article].[active],[article].[contactid],[article].[Author]  FROM [article],[page] WHERE [page].[pageid]=[article].[pageid] and [article].[PageID]={0} ORDER BY [article].[StartDT] ", reqPageID))
             Using myDT As DataTable = wpm_GetDataTable(artSQL, "mhArticle.SetArticleByPageID")
-                ArticleBody = ""
+                ArticleBody = String.Empty
                 For Each row As DataRow In myDT.Rows
                     If ArticleID = reqArticleID Then
                         bFunctionStatus = True
@@ -279,7 +279,7 @@ Public Class Article
                 Return (String.Format("<br/><br /><hr /><a href=""{0}/maint/default.aspx?type=Article&ArticleID={1}""> Edit Article </a>", wpm_SiteConfig.AdminFolder, ArticleID))
             End If
         Else
-            Return ""
+            Return String.Empty
         End If
     End Function
     Private Function FormatArticleBody(ByRef ArticleBody As String) As String

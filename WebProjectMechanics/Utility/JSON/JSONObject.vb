@@ -118,10 +118,10 @@ Public Class JSONObject
         Return New JSONValue(JSONType.undefined, Nothing)
     End Function
 
-    Public Function GetProperties() As Dictionary(Of String,String)
-        Dim dicReturn As New Dictionary(Of String,String)
+    Public Function GetProperties() As Dictionary(Of String, String)
+        Dim dicReturn As New Dictionary(Of String, String)
         For Each prop In _properties
-            dicReturn.Add(prop.Key,prop.Value)
+            dicReturn.Add(prop.Key, prop.Value)
         Next
         Return dicReturn
     End Function

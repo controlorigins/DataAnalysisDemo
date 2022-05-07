@@ -93,20 +93,14 @@ namespace GenericParsing
         /// </summary>
         public int FileRowNumber
         {
-            get
-            {
-                return this.m_intFileRowNumber;
-            }
+            get { return this.m_intFileRowNumber; }
         }
         /// <summary>
         ///   The column number in the file that the exception was thrown at.
         /// </summary>
         public int ColumnNumber
         {
-            get
-            {
-                return this.m_intColumnNumber;
-            }
+            get { return this.m_intColumnNumber; }
         }
 
         #endregion Public Properties

@@ -97,7 +97,7 @@ Public Class LocationImage
     End Function
     Public Function updateImage() As Boolean
         Dim result As Boolean = False
-        If ImageID = "" Then
+        If ImageID = String.Empty Then
             Throw New Exception("Record Does not exist in Image table")
         Else
             If ImageDescription = String.Empty Then
@@ -134,7 +134,7 @@ Public Class LocationImage
     End Function
     Public Function updateImagePath() As Boolean
         Dim result As Boolean = False
-        If ImageID = "" Then
+        If ImageID = String.Empty Then
             Throw New Exception("Record Does not exist in Image table")
         Else
             Using connection As New OleDbConnection(wpm_SQLDBConnString)

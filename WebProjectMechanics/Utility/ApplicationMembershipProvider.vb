@@ -1,11 +1,10 @@
+Imports System.Collections.Specialized
 'Adapted from: http://msdn2.microsoft.com/en-us/library/6tc47t75(VS.80).aspx
 Imports System.Configuration
-Imports System.Collections.Specialized
 Imports System.Configuration.Provider
 Imports System.Data.SqlClient
 Imports System.Security.Cryptography
 Imports System.Text
-Imports System.Web.Configuration
 Imports System.Web.Security
 
 ' This provider works with the following schema for the table of user data.

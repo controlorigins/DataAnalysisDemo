@@ -1,6 +1,6 @@
-Imports System.Text.RegularExpressions
-Imports System.Text
 Imports System.IO
+Imports System.Text
+Imports System.Text.RegularExpressions
 
 Public Module App
     ' Public Shared Config As New FileConfig
@@ -63,7 +63,7 @@ Public Module App
             If IsNothing(WebConfigurationManager.AppSettings.Item(wpm_STR_ConfigFolder)) Then
                 WebConfigurationManager.AppSettings.Item(wpm_STR_ConfigFolder) = "~/App_Data/"
             End If
-            Dim ConfigFile = String.Format("{0}sites\{1}.xml", HttpContext.Current.Server.MapPath(WebConfigurationManager.AppSettings.Item(wpm_STR_ConfigFolder)), Replace(HttpContext.Current.Request.ServerVariables.Item("SERVER_NAME"), "www.", ""))
+            Dim ConfigFile = String.Format("{0}sites\{1}.xml", HttpContext.Current.Server.MapPath(WebConfigurationManager.AppSettings.Item(wpm_STR_ConfigFolder)), Replace(HttpContext.Current.Request.ServerVariables.Item("SERVER_NAME"), "www.", String.Empty))
             Dim mySite As New DomainConfiguration
             Dim mySiteSettings As DomainConfigurations
             If CType(HttpContext.Current.Application(wpm_HostName), DomainConfiguration) Is Nothing Then
@@ -93,7 +93,7 @@ Public Module App
             If Not IsNothing(HttpContext.Current.Request.QueryString.GetValues("c")) Then
                 wpm_CurrentPageID = HttpContext.Current.Request.QueryString.Item("c")
             End If
-            If (HttpContext.Current.Request.QueryString.Item("a") <> "") Then
+            If (HttpContext.Current.Request.QueryString.Item("a") <> String.Empty) Then
                 wpm_CurrentArticleID = wpm_GetDBInteger(HttpContext.Current.Request.QueryString.Item("a"))
             Else
                 wpm_CurrentArticleID = 0
@@ -114,7 +114,7 @@ Public Module App
     End Property
     Public ReadOnly Property wpm_IsAdmin As Boolean
         Get
-            If CStr(HttpContext.Current.Session.Item(wpm_STR_UserGroupID)) = "" Then
+            If CStr(HttpContext.Current.Session.Item(wpm_STR_UserGroupID)) = String.Empty Then
                 HttpContext.Current.Session.Item(wpm_STR_UserGroupID) = "4"
             End If
             If CStr(HttpContext.Current.Session.Item(wpm_STR_UserGroupID)) = "1" Then
@@ -146,7 +146,7 @@ Public Module App
 
     Public ReadOnly Property wpm_HostName As String
         Get
-            Return Replace(HttpContext.Current.Request.ServerVariables.Item("SERVER_NAME"), "www.", "")
+            Return Replace(HttpContext.Current.Request.ServerVariables.Item("SERVER_NAME"), "www.", String.Empty)
         End Get
     End Property
     Public Function wpm_SetListPageURL(ByVal sQueryString As String, ByVal sServerName As String, ByVal sURL As String) As Boolean
@@ -209,7 +209,7 @@ Public Module App
         Return CStr(HttpContext.Current.Session.Item(wpm_STR_RightContent))
     End Function
     Public Function wpm_GetUserGroup() As String
-        If CStr(HttpContext.Current.Session.Item(wpm_STR_UserGroupID)) = "" Then
+        If CStr(HttpContext.Current.Session.Item(wpm_STR_UserGroupID)) = String.Empty Then
             HttpContext.Current.Session.Item(wpm_STR_UserGroupID) = "4"
         End If
         Return CStr(HttpContext.Current.Session.Item(wpm_STR_UserGroupID))
@@ -253,7 +253,7 @@ Public Module App
         Return CStr(HttpContext.Current.Session.Item(wpm_STR_SiteHomePageID))
     End Function
     Public Function wpm_GetSessionDebug() As String
-        Dim mysb As New StringBuilder("")
+        Dim mysb As New StringBuilder(String.Empty)
         mysb.Append("<div class='wpmADMIN'><br/><br/><h2>Current Session</h2><table border=""1"">")
         For Each item As Object In HttpContext.Current.Session
             mysb.Append("<tr><td>")
@@ -345,7 +345,7 @@ Public Module App
         End Get
         Set(ByVal value As String)
             If value = "0" Then
-                value = ""
+                value = String.Empty
             End If
             HttpContext.Current.Session.Item(wpm_STR_CurrentPageID) = value
         End Set
@@ -456,7 +456,7 @@ Public Module App
         Return myValue
     End Function
     Public Function wpm_GetFormProperty(ByVal myProperty As String, ByVal curValue As String, ByVal ControlPrefix As String) As String
-        Dim myValue As String = ""
+        Dim myValue As String = String.Empty
         If Len(HttpContext.Current.Request.QueryString(myProperty)) > 0 Then
             myValue = HttpContext.Current.Request.QueryString(myProperty).ToString
         ElseIf Len(HttpContext.Current.Request.Form.Item(myProperty)) > 0 Then
@@ -474,7 +474,7 @@ Public Module App
     End Function
 
     Public Function wpm_GetProperty(ByVal myProperty As String, ByVal curValue As String) As String
-        Dim myValue As String = ""
+        Dim myValue As String = String.Empty
         If Len(HttpContext.Current.Request.QueryString(myProperty)) > 0 Then
             myValue = HttpContext.Current.Request.QueryString(myProperty).ToString
         ElseIf Len(HttpContext.Current.Request.Form.Item(myProperty)) > 0 Then
@@ -506,13 +506,13 @@ Public Module App
 
     ' Get page name
     Public Function wpm_GetPageName(ByVal url As String) As String
-        If url <> "" Then
+        If url <> String.Empty Then
             If url.Contains("?") Then
                 url = url.Substring(0, url.LastIndexOf("?")) ' Remove querystring first
             End If
             Return url.Substring(url.LastIndexOf("/") + 1) ' Remove path
         Else
-            Return ""
+            Return String.Empty
         End If
     End Function
 
@@ -527,7 +527,7 @@ Public Module App
         Dim bSSL As Boolean = Not wpm_SameText(HttpContext.Current.Request.ServerVariables("HTTPS"), "off")
         Dim sPort As String = HttpContext.Current.Request.ServerVariables("SERVER_PORT")
         Dim defPort As String = CStr(IIf(bSSL, "443", "80"))
-        If sPort = defPort Then sPort = "" Else sPort = ":" & sPort
+        If sPort = defPort Then sPort = String.Empty Else sPort = ":" & sPort
         If bSSL Then
             sUrl = "http" & "s"
         Else
@@ -540,7 +540,7 @@ Public Module App
     Public Function wpm_CurrentUrl() As String
         Dim s As String = HttpContext.Current.Request.ServerVariables("SCRIPT_NAME")
         Dim q As String = HttpContext.Current.Request.ServerVariables("QUERY_STRING")
-        If q <> "" Then s &= "?" & q
+        If q <> String.Empty Then s &= "?" & q
         Return s
     End Function
 
@@ -555,8 +555,8 @@ Public Module App
 
     ' Convert to full URL
     Public Function wpm_ConvertFullUrl(ByVal url As String) As String
-        If url = "" Then
-            Return ""
+        If url = String.Empty Then
+            Return String.Empty
         ElseIf url.Contains("://") Then
             Return url
         Else
@@ -662,8 +662,8 @@ Public Module App
 
 
     Public Function wpm_GetUserOptions() As String
-        Dim sReturn As String = ""
-        If wpm_GetContactID() <> "" Then
+        Dim sReturn As String = String.Empty
+        If wpm_GetContactID() <> String.Empty Then
             sReturn = String.Format("<a href=""{0}login/logout.aspx"" >Sign Out</a>", wpm_SiteConfig.AdminFolder())
         Else
             sReturn = String.Format("<a href=""{0}login/login.aspx"">Sign On</a>", wpm_SiteConfig.AdminFolder())
@@ -692,12 +692,12 @@ Public Module App
     End Function
     Public ReadOnly Property wpm_SiteMapName As String
         Get
-            Return (String.Format("wpm_cache_{0}_{1}_{2}_{3}", Replace(HttpContext.Current.Request.ServerVariables.Item("SERVER_NAME"), "www.", ""), wpm_CurrentSiteID, wpm_GetUserGroup(), "ORDER"))
+            Return (String.Format("wpm_cache_{0}_{1}_{2}_{3}", Replace(HttpContext.Current.Request.ServerVariables.Item("SERVER_NAME"), "www.", String.Empty), wpm_CurrentSiteID, wpm_GetUserGroup(), "ORDER"))
         End Get
     End Property
     Public Sub wpm_ResetSessionVariables()
         wpm_CurrentArticleID = 0
-        wpm_CurrentPageID = ""
+        wpm_CurrentPageID = String.Empty
         ' Session.RightContent = ""
         wpm_AddHTMLHead = "RESET"
     End Sub
@@ -707,9 +707,9 @@ Public Module App
             sLeftLinks = String.Format("<a href=""{0}maint/default.aspx?type=Part"">NO LEFT LINKS</a>", wpm_SiteConfig.AdminFolder)
             sCenterLinks = String.Format("<a href=""{0}maint/default.aspx?type=Part"">NO CENTER LINKS</a>", wpm_SiteConfig.AdminFolder)
         Else
-            sRightLinks = ""
-            sLeftLinks = ""
-            sCenterLinks = ""
+            sRightLinks = String.Empty
+            sLeftLinks = String.Empty
+            sCenterLinks = String.Empty
         End If
         Return True
     End Function

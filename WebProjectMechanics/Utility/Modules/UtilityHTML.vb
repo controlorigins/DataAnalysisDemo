@@ -25,7 +25,7 @@ Public Module UtilityHTML
         Return sReturn
     End Function
     Public Function wpm_GetTableCell(ByRef bCellIsTitle As Boolean, ByRef sContents As String, ByRef sWidth As String) As String
-        Dim sReturn As String = ""
+        Dim sReturn As String = String.Empty
         If bCellIsTitle Then
             sReturn = (String.Format("{0}<td valign=""top"" width={1}>", vbTab, sWidth))
         Else

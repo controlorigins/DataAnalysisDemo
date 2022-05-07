@@ -43,7 +43,7 @@ Public Class ArticleList
 
 
     Public Function PopulateCompanyArticleList(ByVal CompanyID As String) As Boolean
-        Dim sSQL As String = ""
+        Dim sSQL As String = String.Empty
         If Not wpm_IsAdmin Then
             sSQL = (String.Format("SELECT [Article].[ArticleID],[Article].[title],[Article].[Description],[Article].[ArticleSummary],[Article].[ModifiedDT],[Article].[ContactID],[Article].[Author],[Article].[ArticleBody],[Article].[active],[Article].[PageID], [Company].[CompanyName] FROM [Article],[Company] where [Article].[CompanyID]=[Company].[CompanyID] and [Company].[CompanyID]={0} ", CompanyID)) & " and [Article].[Active]= TRUE "
         Else
@@ -114,7 +114,7 @@ Public Class ArticleList
         If wpm_IsAdmin Then
             Return (String.Format("<br /><br /><hr /><a href=""{0}/maint/default.aspx?type=Article&ArticleID={1}""> Edit Article </a>", wpm_SiteConfig.AdminFolder, ArticleID))
         Else
-            Return ""
+            Return String.Empty
         End If
     End Function
 
@@ -143,7 +143,7 @@ Public Class ArticleList
     Public Function BuildBlogList(ByRef sbBlogTemplate As StringBuilder, ByVal iCurrentPageNumber As Integer) As String
         Dim sItem As New StringBuilder
         Dim sURL As String = (String.Format("/default.aspx?c={0}&amp;a={1}", curLocationID, curArticleID))
-        Dim sSubPageNav As String = ("")
+        Dim sSubPageNav As String = (String.Empty)
         Dim iPageCount As Integer = 0
         Dim iFirstDisplay As Integer = 0
         Dim iLastDisplay As Integer = 0
@@ -193,7 +193,7 @@ Public Class ArticleList
                 If iPageNumber < iPageCount Then
                     sSubPageNav = sSubPageNav & "<a title=""NEXT"" href=""" & sURL & "&amp;Page=" & iPageNumber + 1 & """>::></a>"
                 End If
-                If sSubPageNav <> "" Then
+                If sSubPageNav <> String.Empty Then
                     sItem.Append(String.Format("<center>{0}</center>{1}{1}", sSubPageNav, vbCrLf))
                 End If
                 ' Draw The current page

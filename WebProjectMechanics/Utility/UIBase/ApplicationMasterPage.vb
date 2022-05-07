@@ -1,16 +1,14 @@
 ﻿Imports System.Text
 Imports System.Web.UI.WebControls
-Imports System.Web
-Imports System.Web.UI
 
 Public Class ApplicationMasterPage
     Inherits MasterPage
-    Public sExport As String = ""
+    Public sExport As String = String.Empty
     Public StartTimer As Long
     Public myCompany As ActiveCompany
     Protected Sub Page_Init(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Init
         StartTimer = Environment.TickCount
-'        mySession = New ApplicationSession(Session)
+        '        mySession = New ApplicationSession(Session)
         myCompany = New ActiveCompany()
     End Sub
 

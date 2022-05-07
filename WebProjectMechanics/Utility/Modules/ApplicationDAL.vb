@@ -11,7 +11,7 @@ Public Module ApplicationDAL
     '    Return wpm_GetDataTable((String.Format("SELECT 'Link' as RecordSource,  Link.ID, Link.CompanyID, Link.LinkTypeCD, Link.CategoryID, Link.PageID as SiteCategoryID, Link.Title as LinkTitle, Link.Description, Link.URL, Link.DateAdd, Link.Ranks, Link.Views, Link.UserName, Link.UserID, Link.ASIN, Link.SiteCategoryGroupID, LinkCategory.Title as LinkCategoryTitle, Page.PageName as CategoryName, Company.CompanyName, Company.SiteCategoryTypeID  FROM Company RIGHT JOIN (Page RIGHT JOIN (LinkCategory RIGHT JOIN Link ON LinkCategory.ID = Link.CategoryID) ON Page.PageID = Link.PageID) ON Company.CompanyID = Link.CompanyID where (LInk.CompanyID is null OR Link.CompanyID={0})  ORDER BY Link.Ranks  ", CompanyID)), "ApplicationDAL.GetSiteParts")
     'End Function
     Public Function GetSiteCategoryTypeLinks(ByVal SiteCategoryTypeID As String, ByVal CompanyID As String) As DataTable
-        Return wpm_GetDataTable((String.Format("SELECT [Link].[ID] AS [PartID],  [Link].[LinkTypeCD] AS [PartTypeCD], [LinkCategory].[Title] AS [PartCategoryTitle], [LinkCategory].[Id] AS [PartCategoryID], IIf([Page].[PageID] Is Null,Null,[Page].[PageID]) AS [LocationID], IIf([Page].[PageID] Is Null,Null,[Page].[PageName]) AS [LocationNM], [Link].[Title] AS [Title], [Link].[Description] AS [Description], [Link].[Url] AS [URL], [Link].[DateAdd] AS [ModifiedDT], [Link].[Ranks] AS [PartSortOrder], [Link].[Views] AS [View], [Link].[UserID] AS [UserID], [Link].[ASIN] AS [AmazonIndex], 'Link' AS [PartSource], [Company].[CompanyID] AS [CompanyID], [Company].[CompanyName] AS [CompanyNM], [Link].[SiteCategoryGroupID] AS [SiteCategoryGroupID], Null AS [SiteCategoryTypeID] FROM (SiteCategoryType RIGHT JOIN Company ON SiteCategoryType.SiteCategoryTypeID = Company.SiteCategoryTypeID) LEFT JOIN (SiteCategoryGroup RIGHT JOIN ((Link LEFT JOIN Page ON Link.PageID = Page.PageID) LEFT JOIN LinkCategory ON Link.CategoryID = LinkCategory.ID) ON SiteCategoryGroup.SiteCategoryGroupID = Link.SiteCategoryGroupID) ON Company.CompanyID = Link.CompanyID WHERE (((Company.CompanyID)={0}) AND ((Link.CompanyID) Is Null Or (Link.CompanyID)={0})) and Link.ID is not null union all SELECT SiteLink.ID AS PartID, SiteLink.LinkTypeCD AS PartTypeCD, LinkCategory.Title AS PartCategoryTitle, LinkCategory.Id AS PartCategoryID, IIf([SiteCategory].[SiteCategoryID] Is Null,Null,'CAT-' & [SiteCategory].[SiteCategoryID]) AS LocationID, IIf([SiteCategory].[SiteCategoryID] Is Null,Null,[SiteCategory].[CategoryName]) AS LocationNM, SiteLink.Title AS Title, SiteLink.Description AS Description, SiteLink.Url AS URL, SiteLink.DateAdd AS ModifiedDT, SiteLink.Ranks AS PartSortOrder, SiteLink.Views AS [View], SiteLink.UserID AS UserID, SiteLink.ASIN AS AmazonIndex, 'SiteLink' AS PartSource, SiteLink.CompanyID AS CompanyID, SiteLink_Company.CompanyName AS CompanyNM, SiteLink.SiteCategoryGroupID AS SiteCategoryGroupID, SiteLink.SiteCategoryTypeID AS SiteCategoryTypeID FROM (SiteCategoryGroup RIGHT JOIN ((((SiteCategoryType RIGHT JOIN Company ON SiteCategoryType.SiteCategoryTypeID = Company.SiteCategoryTypeID) LEFT JOIN SiteLink ON SiteCategoryType.SiteCategoryTypeID = SiteLink.SiteCategoryTypeID) LEFT JOIN SiteCategory ON SiteLink.SiteCategoryID = SiteCategory.SiteCategoryID) LEFT JOIN LinkCategory ON SiteLink.CategoryID = LinkCategory.ID) ON SiteCategoryGroup.SiteCategoryGroupID = SiteLink.SiteCategoryGroupID) LEFT JOIN Company AS SiteLink_Company ON SiteLink.CompanyID = SiteLink_Company.CompanyID WHERE (((SiteLink.CompanyID) Is Null Or (SiteLink.CompanyID)={0}) AND ((Company.CompanyID)={0})) ORDER BY 3, 11; ", CompanyID )), "ApplicationDAL.GetSiteCategoryLinks")
+        Return wpm_GetDataTable((String.Format("SELECT [Link].[ID] AS [PartID],  [Link].[LinkTypeCD] AS [PartTypeCD], [LinkCategory].[Title] AS [PartCategoryTitle], [LinkCategory].[Id] AS [PartCategoryID], IIf([Page].[PageID] Is Null,Null,[Page].[PageID]) AS [LocationID], IIf([Page].[PageID] Is Null,Null,[Page].[PageName]) AS [LocationNM], [Link].[Title] AS [Title], [Link].[Description] AS [Description], [Link].[Url] AS [URL], [Link].[DateAdd] AS [ModifiedDT], [Link].[Ranks] AS [PartSortOrder], [Link].[Views] AS [View], [Link].[UserID] AS [UserID], [Link].[ASIN] AS [AmazonIndex], 'Link' AS [PartSource], [Company].[CompanyID] AS [CompanyID], [Company].[CompanyName] AS [CompanyNM], [Link].[SiteCategoryGroupID] AS [SiteCategoryGroupID], Null AS [SiteCategoryTypeID] FROM (SiteCategoryType RIGHT JOIN Company ON SiteCategoryType.SiteCategoryTypeID = Company.SiteCategoryTypeID) LEFT JOIN (SiteCategoryGroup RIGHT JOIN ((Link LEFT JOIN Page ON Link.PageID = Page.PageID) LEFT JOIN LinkCategory ON Link.CategoryID = LinkCategory.ID) ON SiteCategoryGroup.SiteCategoryGroupID = Link.SiteCategoryGroupID) ON Company.CompanyID = Link.CompanyID WHERE (((Company.CompanyID)={0}) AND ((Link.CompanyID) Is Null Or (Link.CompanyID)={0})) and Link.ID is not null union all SELECT SiteLink.ID AS PartID, SiteLink.LinkTypeCD AS PartTypeCD, LinkCategory.Title AS PartCategoryTitle, LinkCategory.Id AS PartCategoryID, IIf([SiteCategory].[SiteCategoryID] Is Null,Null,'CAT-' & [SiteCategory].[SiteCategoryID]) AS LocationID, IIf([SiteCategory].[SiteCategoryID] Is Null,Null,[SiteCategory].[CategoryName]) AS LocationNM, SiteLink.Title AS Title, SiteLink.Description AS Description, SiteLink.Url AS URL, SiteLink.DateAdd AS ModifiedDT, SiteLink.Ranks AS PartSortOrder, SiteLink.Views AS [View], SiteLink.UserID AS UserID, SiteLink.ASIN AS AmazonIndex, 'SiteLink' AS PartSource, SiteLink.CompanyID AS CompanyID, SiteLink_Company.CompanyName AS CompanyNM, SiteLink.SiteCategoryGroupID AS SiteCategoryGroupID, SiteLink.SiteCategoryTypeID AS SiteCategoryTypeID FROM (SiteCategoryGroup RIGHT JOIN ((((SiteCategoryType RIGHT JOIN Company ON SiteCategoryType.SiteCategoryTypeID = Company.SiteCategoryTypeID) LEFT JOIN SiteLink ON SiteCategoryType.SiteCategoryTypeID = SiteLink.SiteCategoryTypeID) LEFT JOIN SiteCategory ON SiteLink.SiteCategoryID = SiteCategory.SiteCategoryID) LEFT JOIN LinkCategory ON SiteLink.CategoryID = LinkCategory.ID) ON SiteCategoryGroup.SiteCategoryGroupID = SiteLink.SiteCategoryGroupID) LEFT JOIN Company AS SiteLink_Company ON SiteLink.CompanyID = SiteLink_Company.CompanyID WHERE (((SiteLink.CompanyID) Is Null Or (SiteLink.CompanyID)={0}) AND ((Company.CompanyID)={0})) ORDER BY 3, 11; ", CompanyID)), "ApplicationDAL.GetSiteCategoryLinks")
     End Function
     Public Function GetPartCategoryList() As DataTable
         Return wpm_GetDataTable("SELECT LinkCategory.ID,  LinkCategory.Title,  LinkCategory.ParentID,  LinkCategory.Description,  LinkCategory.PageID,  0 AS CountOfID FROM LinkCategory ", "mhDataCon.GetLinkCategoryList")
@@ -123,7 +123,7 @@ Public Module ApplicationDAL
         Dim sSQL As String
         Dim iRowsUpdated As Integer = 0
         If myLocation.RecordSource = "Page" Then
-            If Trim(myLocation.LocationID) <> "" Then
+            If Trim(myLocation.LocationID) <> String.Empty Then
                 sSQL = String.Format("UPDATE Page SET Page.PageOrder={1} WHERE Page.PageID={0};", myLocation.LocationID, myLocation.DefaultOrder)
                 iRowsUpdated = wpm_RunUpdateSQL(sSQL, "ApplicationDAL.UpdatePageDate")
             End If
@@ -139,7 +139,7 @@ Public Module ApplicationDAL
     Public Function UpdatePageDate(ByVal pageID As String) As Boolean
         Dim sSQL As String
         Dim iRowsUpdated As Integer = 0
-        If Trim(pageID) <> "" Then
+        If Trim(pageID) <> String.Empty Then
             sSQL = String.Format("UPDATE Page SET Page.ModifiedDT = system.datetime.now() WHERE (((Page.PageID)={0}));", pageID)
             iRowsUpdated = wpm_RunUpdateSQL(sSQL, "ApplicationDAL.UpdatePageDate")
         End If
@@ -154,7 +154,7 @@ Public Module ApplicationDAL
         Dim mySQL As String
         Dim myID As String
         Dim myValue As String
-        If Trim(ListWhere) <> "" Then
+        If Trim(ListWhere) <> String.Empty Then
             mySQL = String.Format("{0} where {1}", ("Select " & ListID & ", " & ListDisplay & " from " & ListTable), ListWhere)
         Else
             mySQL = (String.Format("Select {0}, {1} from {2}", ListID, ListDisplay, ListTable))
@@ -230,8 +230,8 @@ Public Module ApplicationDAL
         End Using
     End Function
     Public Function GetTemplateList(ByVal sTemplatePrefix As String, ByVal bRequired As Boolean) As String
-        Dim stList As String = ""
-        Dim sqlwrk As String = ""
+        Dim stList As String = String.Empty
+        Dim sqlwrk As String = String.Empty
         Dim myDT As DataTable
         If (bRequired) Then
             stList = "<SELECT name='st'>"

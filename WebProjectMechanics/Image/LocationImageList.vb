@@ -55,8 +55,8 @@ Public Class LocationImageList
     End Sub
 
     Public Function ProcessPageRequest(ByVal ImageID As Integer, ByRef myArticle As Location) As String
-        Dim sRightContent As String = ("")
-        Dim myStringBuilder As StringBuilder = New StringBuilder("")
+        Dim sRightContent As String = (String.Empty)
+        Dim myStringBuilder As StringBuilder = New StringBuilder(String.Empty)
         If (ImageID < 1) Then
             ' code for thumnail page
             myStringBuilder.Append(GetImageTextMerge(myArticle.LocationBody, True, sRightContent, wpm_SiteGallery))
@@ -206,11 +206,11 @@ Public Class LocationImageList
         Return strText
     End Function
     Private Function BuildPhotoAlbumPage() As String
-        Dim myStringBuilder As StringBuilder = New StringBuilder("")
+        Dim myStringBuilder As StringBuilder = New StringBuilder(String.Empty)
         If iImagesPerRow < 1 then
             iImagesPerRow = 3
         End If
-        If iRowsPerPage < 1 then 
+        If iRowsPerPage < 1 then
             iRowsPerPage = 3
         End If
 
@@ -230,7 +230,7 @@ Public Class LocationImageList
         Return myStringBuilder.ToString
     End Function
     Private Function BuildSliderPageThumbnail() As String
-        Dim myStringBuilder As StringBuilder = New StringBuilder("")
+        Dim myStringBuilder As StringBuilder = New StringBuilder(String.Empty)
         Dim iRowCount As Integer = 0
         If Images.Count > 0 Then
             For Each Image As LocationImage In Images
@@ -245,7 +245,7 @@ Public Class LocationImageList
         Return myStringBuilder.ToString
     End Function
     Private Function BuildLightboxSliderPageThumbnail() As String
-        Dim myStringBuilder As StringBuilder = New StringBuilder("")
+        Dim myStringBuilder As StringBuilder = New StringBuilder(String.Empty)
         Dim iRowCount As Integer = 0
         If Images.Count > 0 Then
             For Each Image As LocationImage In Images
@@ -260,7 +260,7 @@ Public Class LocationImageList
         Return myStringBuilder.ToString
     End Function
     Private Function BuildSliderPageImage() As String
-        Dim myStringBuilder As StringBuilder = New StringBuilder("")
+        Dim myStringBuilder As StringBuilder = New StringBuilder(String.Empty)
         Dim iRowCount As Integer = 0
         If Images.Count > 0 Then
             For Each Image As LocationImage In Images
@@ -275,7 +275,7 @@ Public Class LocationImageList
         Return myStringBuilder.ToString
     End Function
     Private Function BuildYUICarouselPageImage() As String
-        Dim myStringBuilder As StringBuilder = New StringBuilder("")
+        Dim myStringBuilder As StringBuilder = New StringBuilder(String.Empty)
         If Images.Count > 0 Then
             myStringBuilder.Append(String.Format("{0}{0}<div id=""container""><ol id=""carousel"">{0}", vbCrLf))
             For Each Image As LocationImage In Images
@@ -301,7 +301,7 @@ Public Class LocationImageList
         Return myStringBuilder.ToString
     End Function
     Private Function BuildLightboxPageImage() As String
-        Dim myStringBuilder As StringBuilder = New StringBuilder("")
+        Dim myStringBuilder As StringBuilder = New StringBuilder(String.Empty)
         If Images.Count > 0 Then
             For Each Image As LocationImage In Images
                 myStringBuilder.Append(String.Format("<a title=""{0}"" href=""{1}"" rel=""lightbox[{2}]"" ><img style=""align:text-top;border:0;"" alt=""{0}"" src=""{3}""  /></a> {4}", Image.ImageDescription, GetImagePath(Image.ImageFileName, sImageWidth), (CatalogPageName.Trim), GetImagePath(Image.ImageFileName, sThumbnailWidth), vbCrLf))
@@ -312,7 +312,7 @@ Public Class LocationImageList
         Return myStringBuilder.ToString
     End Function
     Private Function BuildCMotionPageImage(ByVal AddLightbox As Boolean) As String
-        Dim myStringBuilder As StringBuilder = New StringBuilder("")
+        Dim myStringBuilder As StringBuilder = New StringBuilder(String.Empty)
         If Images.Count > 0 Then
             myStringBuilder.Append("<div id=""motioncontainer"" style=""position:relative;overflow:hidden;valign:top;"">" & vbCrLf)
             myStringBuilder.Append(String.Format("<div id=""motiongallery"" style=""position:relative;left:0px;top:0px;white-space:nowrap;valign:top;"">{0}{0}", vbCrLf))
@@ -335,7 +335,7 @@ Public Class LocationImageList
         Return myStringBuilder.ToString
     End Function
     Private Function BuildImageUL(ByVal bIncludeDiv As Boolean, ByVal IDName As String) As String
-        Dim myStringBuilder As StringBuilder = New StringBuilder("")
+        Dim myStringBuilder As StringBuilder = New StringBuilder(String.Empty)
         If Images.Count > 0 Then
             myStringBuilder.Append(String.Format("<ul id=""{0}""> {1}", IDName, vbCrLf))
             For Each Image As LocationImage In Images
@@ -362,7 +362,7 @@ Public Class LocationImageList
     End Function
 
     Private Function BuildImageDiv(ByVal bIncludeDiv As Boolean) As String
-        Dim myStringBuilder As StringBuilder = New StringBuilder("")
+        Dim myStringBuilder As StringBuilder = New StringBuilder(String.Empty)
         If Images.Count > 0 Then
             For Each Image As LocationImage In Images
                 If bIncludeDiv Then
@@ -387,7 +387,7 @@ Public Class LocationImageList
     End Function
 
     Private Function BuildImageTags() As String
-        Dim myStringBuilder As StringBuilder = New StringBuilder("")
+        Dim myStringBuilder As StringBuilder = New StringBuilder(String.Empty)
         If Images.Count > 0 Then
             For Each Image As LocationImage In Images
                 If Image.Title = String.Empty Then
@@ -404,7 +404,7 @@ Public Class LocationImageList
         Return myStringBuilder.ToString
     End Function
     Private Function BuildFadeImage() As String
-        Dim myStringBuilder As StringBuilder = New StringBuilder("")
+        Dim myStringBuilder As StringBuilder = New StringBuilder(String.Empty)
         myStringBuilder.Append("var photoalbum=new Array() " & vbCrLf)
         Dim iImageNumber As Integer = 0
         If Images.Count > 0 Then
@@ -519,32 +519,32 @@ Public Class LocationImageList
 End Class
 
 
-    'Public Function FixFolders(ByVal sPageID As String) As Boolean
-    '    Dim sNewPagePath As String = ("")
-    '    Dim sNewImagePath As String = ("")
-    '    '   Dim sNewThumbnailPath As String = ("")
-    '    Using dtPageImage As New DataTable
-    '        For Each myImage As LocationImage In Images
-    '            If ActiveSite.CurrentLocationID = sPageID Then
-    '                sNewPagePath = String.Format("{0}image/{1}", wpm_SiteGallery, wpm_FormatPageNameForURL(ActiveSite.GetCurrentPageName))
-    '                ' Create a Folder for Page 
-    '                sNewPagePath = HttpContext.Current.Server.MapPath(sNewPagePath)
-    '                FileProcessing.CreateFolder(sNewPagePath)
-    '                ' Create a Folder for Image/Page and move this image file to the folder
-    '                sNewImagePath = sNewPagePath
-    '                FileProcessing.CreateFolder(sNewImagePath)
-    '                FileProcessing.MoveFile(HttpContext.Current.Server.MapPath(wpm_SiteGallery & _
-    '                               myImage.ImageFileName), String.Format("{0}/{1}", sNewPagePath, myImage.ImageFileName))
-    '            End If
-    '        Next
-    '    End Using
-    '    Return True
-    'End Function
-    'Public Shared Function GetImageLocation(ByRef myImage As LocationImage, ByRef ActiveSite As ActiveCompany) As String
-    '    Return wpm_FixInvalidCharacters(String.Format("{0}-{1}{2}", ActiveSite.GetCurrentPageName, myImage.ImageName, wpm_SiteConfig.DefaultExtension))
-    'End Function
-    'Public Shared Function GetImagePathHeight(ByVal SiteGallery As String, ByVal ImagePath As String, ByVal ImageHeight As String) As String
-    '    Dim myReturn As String = SiteGallery & ImagePath
-    '    myReturn = Replace(myReturn, "\", "/")
-    '    Return String.Format("/runtime/catalog/FindImage.ashx?h={0}&img={1}", ImageHeight, Replace(myReturn, "//", "/"), wpm_SiteConfig.ApplicationHome)
-    'End Function
+'Public Function FixFolders(ByVal sPageID As String) As Boolean
+'    Dim sNewPagePath As String = ("")
+'    Dim sNewImagePath As String = ("")
+'    '   Dim sNewThumbnailPath As String = ("")
+'    Using dtPageImage As New DataTable
+'        For Each myImage As LocationImage In Images
+'            If ActiveSite.CurrentLocationID = sPageID Then
+'                sNewPagePath = String.Format("{0}image/{1}", wpm_SiteGallery, wpm_FormatPageNameForURL(ActiveSite.GetCurrentPageName))
+'                ' Create a Folder for Page 
+'                sNewPagePath = HttpContext.Current.Server.MapPath(sNewPagePath)
+'                FileProcessing.CreateFolder(sNewPagePath)
+'                ' Create a Folder for Image/Page and move this image file to the folder
+'                sNewImagePath = sNewPagePath
+'                FileProcessing.CreateFolder(sNewImagePath)
+'                FileProcessing.MoveFile(HttpContext.Current.Server.MapPath(wpm_SiteGallery & _
+'                               myImage.ImageFileName), String.Format("{0}/{1}", sNewPagePath, myImage.ImageFileName))
+'            End If
+'        Next
+'    End Using
+'    Return True
+'End Function
+'Public Shared Function GetImageLocation(ByRef myImage As LocationImage, ByRef ActiveSite As ActiveCompany) As String
+'    Return wpm_FixInvalidCharacters(String.Format("{0}-{1}{2}", ActiveSite.GetCurrentPageName, myImage.ImageName, wpm_SiteConfig.DefaultExtension))
+'End Function
+'Public Shared Function GetImagePathHeight(ByVal SiteGallery As String, ByVal ImagePath As String, ByVal ImageHeight As String) As String
+'    Dim myReturn As String = SiteGallery & ImagePath
+'    myReturn = Replace(myReturn, "\", "/")
+'    Return String.Format("/runtime/catalog/FindImage.ashx?h={0}&img={1}", ImageHeight, Replace(myReturn, "//", "/"), wpm_SiteConfig.ApplicationHome)
+'End Function

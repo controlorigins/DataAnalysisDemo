@@ -18,7 +18,7 @@ Public Class ApplicationHttpModule
              ByVal e As EventArgs)
         ' Create HttpApplication and HttpContext objects to access 
         ' request and response properties. 
-        Dim application As HttpApplication = DirectCast(source,  HttpApplication)
+        Dim application As HttpApplication = DirectCast(source, HttpApplication)
         Dim context As HttpContext = application.Context
         Dim url As String = context.Request.Url.ToString()
         If url.Contains("://www.") AndAlso wpm_SiteConfig.RemoveWWW Then

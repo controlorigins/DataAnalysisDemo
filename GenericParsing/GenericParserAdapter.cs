@@ -158,10 +158,7 @@ namespace GenericParsing
         /// <exception cref="InvalidOperationException">Attempting to modify the configuration, while parsing.</exception>
         public bool IncludeFileLineNumber
         {
-            get
-            {
-                return this.m_blnIncludeFileLineNumber;
-            }
+            get { return this.m_blnIncludeFileLineNumber; }
             set
             {
                 if (this.m_ParserState == ParserState.Parsing)
@@ -188,10 +185,7 @@ namespace GenericParsing
         /// <exception cref="InvalidOperationException">Attempting to modify the configuration, while parsing.</exception>
         public int SkipEndingDataRows
         {
-            get
-            {
-                return this.m_intSkipEndingDataRows;
-            }
+            get { return this.m_intSkipEndingDataRows; }
             set
             {
                 if (this.m_ParserState == ParserState.Parsing)

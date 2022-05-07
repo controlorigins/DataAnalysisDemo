@@ -23,7 +23,7 @@ Public Class ApplicationUserControl
     Public ReturnURL As String = String.Empty
 
     Public Function GetProperty(ByVal myProperty As String, ByVal curValue As String) As String
-        Dim myValue As String = ""
+        Dim myValue As String = String.Empty
         If Len(Request.QueryString(myProperty)) > 0 Then
             myValue = Request.QueryString(myProperty).ToString
         ElseIf Len(Request.Form.Item(myProperty)) > 0 Then

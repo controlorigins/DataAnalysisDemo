@@ -14,8 +14,8 @@ Public Module ApplicationUser
         wpm_SetPageHistory()
         Dim myUser As New UserInfo With {.UserID = -1, .IsActive = False, .DisplayName = "Guest"}
         Dim strSQL As String = (String.Format("SELECT Contact.ContactID, Contact.LogonName, Contact.PrimaryContact,  Contact.GroupID,  Contact.LogonPassword,  Contact.Active,  Contact.EMail,  Company.CompanyID,  Company.CompanyName,  Company.GalleryFolder,  Company.SiteURL,  Company.SiteTitle,  Company.SiteTemplate, Company.DefaultArticleID, Company.HomePageID, Company.DefaultSiteTemplate FROM Contact, Company  WHERE Contact.CompanyID=Company.CompanyID AND Contact.LogonName = '{0}' AND Contact.LogonPassword = '{1}' ", _
-                                    Replace(sLogonName, " ", ""), _
-                                    Replace(sPassword, " ", "")))
+                                    Replace(sLogonName, " ", String.Empty), _
+                                    Replace(sPassword, " ", String.Empty)))
 
         For Each myRow As DataRow In wpm_GetDataTable(strSQL, "ApplicationUser.GetContact for Login").Rows
             If CBool(myRow.Item("Active")) Then
@@ -38,7 +38,7 @@ Public Module ApplicationUser
                 wpm_ContactName = myRow.Item("PrimaryContact").ToString
                 wpm_CurrentUserGroupID = myRow.Item("GroupID").ToString
                 If IsDBNull(myRow.Item("EMail")) Then
-                    wpm_ContactEmail = ""
+                    wpm_ContactEmail = String.Empty
                 Else
                     wpm_ContactEmail = myRow.Item("EMail").ToString
                 End If
@@ -49,7 +49,7 @@ Public Module ApplicationUser
     End Function
     Public Function wpm_UpdateUserOptions(ByVal ContactID As String) As String
         Dim sReturn As Integer
-        If CStr(ContactID) <> "" Then
+        If CStr(ContactID) <> String.Empty Then
             sReturn = wpm_RunUpdateSQL(String.Format("UPDATE [contact] SET [contact].[CreateDT]='{0}'  WHERE [contact].[ContactID]={1} ", FormatDateTime(Now), CStr(ContactID)), "ApplicationUser.UpdateUserOptions")
         End If
         Return sReturn.ToString

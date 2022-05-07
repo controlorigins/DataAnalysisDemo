@@ -10,7 +10,7 @@ Public Module FileProcessing
         Try
             sPath = HttpContext.Current.Server.MapPath(sRelativeFilePath)
         Catch ex As Exception
-            sPath = ""
+            sPath = String.Empty
             ApplicationLogging.ErrorLog(String.Format("Invalid File - {0}", sPath), sCallingProcess)
         End Try
         Return sPath
@@ -146,7 +146,7 @@ Public Module FileProcessing
         For Each baseDir As DirectoryInfo In My.Computer.FileSystem.GetDirectoryInfo(HttpContext.Current.Server.MapPath(sPath)).GetDirectories
             If Not (baseDir.Extension.ToLower = ".svn") Then
                 iMenuItemCount = iMenuItemCount + 1
-                mysb.Append(String.Format("<li><a href=""{0}/{1}"">{2}</a></li>", sPath, baseDir.Name, baseDir.Name.Replace(".aspx", "")).Replace("//", "/"))
+                mysb.Append(String.Format("<li><a href=""{0}/{1}"">{2}</a></li>", sPath, baseDir.Name, baseDir.Name.Replace(".aspx", String.Empty)).Replace("//", "/"))
             End If
         Next
         mysb.Append("</ul></div><br/><br/>")
@@ -173,7 +173,7 @@ Public Module FileProcessing
         For Each baseFile As FileInfo In My.Computer.FileSystem.GetDirectoryInfo(sPath).GetFiles()
             If baseFile.Extension.ToLower = ".aspx" AndAlso baseFile.Name.ToLower <> "default.aspx" Then
                 iMenuItemCount = iMenuItemCount + 1
-                mySB.Append(String.Format("<li><a href=""{0}"">{1}</a></li>", baseFile.Name, baseFile.Name.Replace(".aspx", "")))
+                mySB.Append(String.Format("<li><a href=""{0}"">{1}</a></li>", baseFile.Name, baseFile.Name.Replace(".aspx", String.Empty)))
             End If
         Next
         mySB.Append("</ul></div><br/><br/>")
@@ -246,7 +246,7 @@ Public Module FileProcessing
         sPath = Replace(sPath, "\\", "\")
         sPath = Replace(sPath, "//", "/")
         If Not IsValidPath(sPath) Then
-            sPath = ""
+            sPath = String.Empty
             ApplicationLogging.ErrorLog("Invalid File - " & sPath, sCallingProcess)
         End If
         Return sPath
@@ -256,7 +256,7 @@ Public Module FileProcessing
         sPath = Replace(sPath, "\\", "\")
         sPath = Replace(sPath, "//", "/")
         If Not IsValidPath(sPath) Then
-            sPath = ""
+            sPath = String.Empty
             ApplicationLogging.ErrorLog("Invalid File - " & sPath, sCallingProcess)
         End If
         Return sPath
@@ -287,7 +287,7 @@ Public Module FileProcessing
     End Function
     Public Function CompareFileName(ByVal ImageFileName As String, ByVal DirectoryFileName As String) As Boolean
         Dim bReturn As Boolean = False
-        If DirectoryFileName <> "" And Not IsNothing(DirectoryFileName) Then
+        If DirectoryFileName <> String.Empty And Not IsNothing(DirectoryFileName) Then
             ImageFileName = (Replace(ImageFileName.ToLower, "/", "\"))
             DirectoryFileName = (Replace(DirectoryFileName.ToLower, "/", "\"))
             If ImageFileName = DirectoryFileName Then

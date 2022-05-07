@@ -1,6 +1,4 @@
 Imports System.ComponentModel
-Imports System.Web
-
 
 <DataObject(True)> _
 Public Class LocationImageAdapter

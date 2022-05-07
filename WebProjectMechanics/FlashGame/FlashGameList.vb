@@ -1,9 +1,7 @@
-Imports System.Xml.Serialization
 Imports System.IO
-Imports System.Xml
 Imports System.Text
-Imports System.Web
-
+Imports System.Xml
+Imports System.Xml.Serialization
 
 Public Class FlashGameList
     Inherits List(Of FlashGame)
@@ -109,7 +107,7 @@ Public Class FlashGameList
     Public Function BuildGameList(ByRef sbBlogTemplate As StringBuilder, ByVal iCurrentPageNumber As Integer, ByVal reqGameName As String) As String
         Dim sItem As New StringBuilder
         Dim sURL As String = (String.Format("/default.aspx?c={0}&amp;a={1}", myLocation.LocationID, myLocation.ArticleID))
-        Dim sSubPageNav As String = ("")
+        Dim sSubPageNav As String = (String.Empty)
         Dim iPageCount As Integer = 0
         Dim iFirstDisplay As Integer = 0
         Dim iLastDisplay As Integer = 0
@@ -158,7 +156,7 @@ Public Class FlashGameList
                 If iPageNumber < iPageCount Then
                     sSubPageNav = sSubPageNav & "<a title=""NEXT"" href=""" & sURL & "&amp;Page=" & iPageNumber + 1 & """>::></a>"
                 End If
-                If sSubPageNav <> "" Then
+                If sSubPageNav <> String.Empty Then
                     sItem.Append(String.Format("<center>{0}</center>{1}{1}", sSubPageNav, vbCrLf))
                 End If
                 ' Draw The current page

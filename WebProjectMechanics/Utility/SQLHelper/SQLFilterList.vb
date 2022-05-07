@@ -11,14 +11,14 @@ Public Class SQLFilterList
         MyBase.New(collection)
     End Sub
     Private SearchField As String
-    Private Function FindClauseByField(ByVal FilterClause As SQLFilterClause) As boolean    
+    Private Function FindClauseByField(ByVal FilterClause As SQLFilterClause) As boolean
         If FilterClause.Field = SearchField Then
             Return True
         Else
             Return False
         End If
     End Function
-        Public Function FindField(ByVal reqSearchField As String) As list(of SQLFilterClause)
+    Public Function FindField(ByVal reqSearchField As String) As list(of SQLFilterClause)
         SearchField = reqSearchField
         Return FindAll(AddressOf FindClauseByField)
     End Function

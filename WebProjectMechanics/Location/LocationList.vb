@@ -76,7 +76,7 @@ Public Class LocationList
 
             If wpm_GetDBInteger(GroupID) <= MySiteRow.GroupID Then
                 Add(MySiteRow)
-           End If
+            End If
 
 
         Next
@@ -89,7 +89,7 @@ Public Class LocationList
     Public Function BuildBreadCrumbRows() As Boolean
         Dim LevelCount As Integer = 1
         For Each myLocation As Location In Me
-            If (myLocation.BreadCrumbURL = String.Empty Or myLocation.BreadCrumbURL = "") Then
+            If (myLocation.BreadCrumbURL = String.Empty Or myLocation.BreadCrumbURL = String.Empty) Then
                 GenerateBreadcrumRow(myLocation, LevelCount)
             End If
             ' Reset Variables
@@ -149,12 +149,12 @@ Public Class LocationList
                     If myrow.LocationID = pageID Then
                         'It turns out it's possible for a child's bread crumbs to be generated before it's parents.
                         'So, if I run across a parent that doesn't yet have a bread crumb, I generate it.
-                        If (myrow.BreadCrumbURL = String.Empty Or myrow.BreadCrumbURL = "") Then
+                        If (myrow.BreadCrumbURL = String.Empty Or myrow.BreadCrumbURL = String.Empty) Then
                             GenerateBreadcrumRow(myrow, LevelCount)
                         End If
                         BreadCrumbRows.Add(GetBreadcrumbRow(myrow, LevelCount))
                         LevelCount = LevelCount + 1
-                        If (myrow.ParentLocationID.Trim) <> "" Then
+                        If (myrow.ParentLocationID.Trim) <> String.Empty Then
                             BuildParentBreadcrumbs(BreadCrumbRows, myrow.ParentLocationID, LevelCount)
                         End If
                         Exit For
@@ -341,7 +341,7 @@ Public Class LocationList
 #Region "Menu"
 
     Public Function BuildMenu(ByVal PageID As String, ByVal ParentPageID As String, ByVal DefaultParentPageID As String) As String
-        Dim sReturn As New StringBuilder("")
+        Dim sReturn As New StringBuilder(String.Empty)
         For Each myLocation As Location In Me
             If myLocation.RecordSource = "Page" And myLocation.LocationTypeCD IsNot "MODULE" Then
                 If myLocation.ParentLocationID = ParentPageID Then
@@ -360,7 +360,7 @@ Public Class LocationList
             sReturn.Insert(0, String.Format("<ul class=""BuildMenu"">{0}", vbCrLf))
             sReturn.Append("</ul>" & vbCrLf)
         Else
-            If ParentPageID <> DefaultParentPageID And DefaultParentPageID <> "" Then
+            If ParentPageID <> DefaultParentPageID And DefaultParentPageID <> String.Empty Then
                 sReturn.Append(BuildMenu(PageID, DefaultParentPageID, DefaultParentPageID))
             End If
         End If
@@ -368,7 +368,7 @@ Public Class LocationList
     End Function
 
     Public Function BuildPageTree(ByVal ParentID As String, ByVal intLevel As Double, ByVal sULClassName As String) As String
-        Dim sReturn As New StringBuilder("")
+        Dim sReturn As New StringBuilder(String.Empty)
         For Each myLocation As Location In Me
             If myLocation.ActiveFL Then
                 If (myLocation.RecordSource = "Page" Or myLocation.RecordSource = "Article") And myLocation.LocationTypeCD IsNot "MODULE" Then

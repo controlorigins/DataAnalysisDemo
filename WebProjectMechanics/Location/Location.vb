@@ -111,13 +111,13 @@ Public Class Location
                         sTransferParms = String.Format("c={0}", LocationID)
                     End If
                 Case "Article"
-                    If LocationID <> "" Then
+                    If LocationID <> String.Empty Then
                         sTransferParms = String.Format("{0}&c={1}", String.Format("a={0}", ArticleID), ParentLocationID)
                     Else
                         sTransferParms = String.Format("a={0}", ArticleID)
                     End If
                 Case "Image"
-                    If LocationID <> "" Then
+                    If LocationID <> String.Empty Then
                         sTransferParms = String.Format("{0}&c={1}", String.Format("a={0}", ArticleID), ParentLocationID)
                     Else
                         sTransferParms = String.Format("i={0}", ArticleID)
@@ -156,22 +156,22 @@ Public Class Location
         If ParentLocationID = "0" Then
             ParentLocationID = String.Empty
         End If
-        If (LocationID = ParentLocationID And ParentLocationID <> "") Then
-            ParentLocationID = ""
+        If (LocationID = ParentLocationID And ParentLocationID <> String.Empty) Then
+            ParentLocationID = String.Empty
             ApplicationLogging.ErrorLog(String.Format("PageID=ParentPageID ({0} - {1}) ", LocationName, LocationID), "Location.SetLocationID")
         End If
         Select Case RecordSource
             Case "Page"
                 ' Do Nothing
             Case "Article"
-                If LocationID <> "" Then
+                If LocationID <> String.Empty Then
                     ParentLocationID = LocationID
                     LocationID = String.Format("ART-{0}", ArticleID)
                 Else
                     LocationID = String.Format("ART-{0}", ArticleID)
                 End If
             Case "Image"
-                If LocationID <> "" Then
+                If LocationID <> String.Empty Then
                     ParentLocationID = LocationID
                     LocationID = String.Format("IMG-{0}", ImageID)
                 Else
@@ -180,7 +180,7 @@ Public Class Location
             Case "Category"
                 SiteCategoryID = LocationID
                 LocationID = String.Format("CAT-{0}", LocationID)
-                If ParentLocationID <> "" Then
+                If ParentLocationID <> String.Empty Then
                     ParentLocationID = "CAT-" & ParentLocationID
                 End If
             Case Else

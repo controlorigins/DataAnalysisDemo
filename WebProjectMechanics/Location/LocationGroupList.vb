@@ -2,15 +2,15 @@
 Public Class LocationGroupList
     Inherits List(Of LocationGroup)
     Public Sub New()
-        
+
     End Sub
     Public Sub New(ByVal capacity As Integer)
         MyBase.New(capacity)
-        
+
     End Sub
     Public Sub New(ByVal collection As IEnumerable(Of LocationGroup))
         MyBase.New(collection)
-        
+
     End Sub
     Public Function PopulateSiteGroupList(ByVal CompanyID As String) As Boolean
         Dim bReturn As Boolean = True

@@ -1,7 +1,6 @@
-Imports System.Text
-Imports System.Web
-Imports System.Net
 Imports System.IO
+Imports System.Net
+Imports System.Text
 
 Public Class ActiveCompany
 #Region "properties"
@@ -29,10 +28,10 @@ Public Class ActiveCompany
         End If
         With CurLocation
             .LocationTypeCD = "404"
-            .LocationID = ""
+            .LocationID = String.Empty
             .ArticleID = 0
-            .TransferURL = ""
-            .MainMenuLocationID = ""
+            .TransferURL = String.Empty
+            .MainMenuLocationID = String.Empty
             .LocationName = wpm_FileNotFound
             .LocationTitle = wpm_FileNotFound
         End With
@@ -41,7 +40,7 @@ Public Class ActiveCompany
 #End Region
 
     Public Function SetCurrentPageID(ByVal reqCurrentPageID As String) As Boolean
-        If IsNothing(reqCurrentPageID) Or IsDBNull(reqCurrentPageID) Or reqCurrentPageID = "" Then
+        If IsNothing(reqCurrentPageID) Or IsDBNull(reqCurrentPageID) Or reqCurrentPageID = String.Empty Then
             wpm_CurrentPageID = CurCompany.HomeLocationID
             CurLocation.MainMenuLocationID = CurCompany.HomeLocationID
         Else
@@ -135,7 +134,7 @@ Public Class ActiveCompany
                 Case "~~TopMenuTree~~"
                     sbContent.Replace("~~TopMenuTree~~", CurCompany.BuildTopMenuTree(String.Empty, 0, String.Empty))
                 Case "~~yuiMainTree~~"
-                    sbContent.Replace("~~yuiMainTree~~", CurCompany.yuiBuildPageTree("", 0, "top"))
+                    sbContent.Replace("~~yuiMainTree~~", CurCompany.yuiBuildPageTree(String.Empty, 0, "top"))
                 Case "~~yuiSubMenu~~"
                     sbContent.Replace("~~yuiSubMenu~~", CurCompany.yuiBuildPageList(CurLocation.MainMenuLocationID, CurLocation.MainMenuLocationName, CurLocation.LocationID, 0))
                 Case "~~yuiChildrenMenu~~"
@@ -267,7 +266,7 @@ Public Class ActiveCompany
             Case "SITEMAP"
                 CurLocation.LocationName = CurCompany.DomainName & " Sitemap"
                 CurLocation.LocationTitle = CurCompany.DomainName & " Sitemap"
-                response.Write(GetHTML(CurCompany.CompanyDescription & CurCompany.Locations.BuildPageTree("", 0, "sitemap"), False, wpm_SiteTemplatePrefix))
+                response.Write(GetHTML(CurCompany.CompanyDescription & CurCompany.Locations.BuildPageTree(String.Empty, 0, "sitemap"), False, wpm_SiteTemplatePrefix))
             Case "SITEMAP.XML"
                 response.ContentType = "text/xml"
                 Using gen As SiteMapXmlTextWriter = New SiteMapXmlTextWriter(response.Output)
@@ -293,7 +292,7 @@ Public Class ActiveCompany
         Return myHTML.ToString
     End Function
     Public Function GetHTML(ByVal sMainContent As String, ByVal bUseDefault As Boolean, ByVal TemplatePrefix As String) As String
-        If CurLocation.LocationID = "" And CurLocation.ArticleID < 1 And Trim(TemplatePrefix) = "" Then
+        If CurLocation.LocationID = String.Empty And CurLocation.ArticleID < 1 And Trim(TemplatePrefix) = String.Empty Then
             bUseDefault = True
         End If
         If UseDefaultTemplate Then
@@ -386,7 +385,7 @@ Public Class ActiveCompany
         Dim myImageList As New LocationImageList(Me)
         ' Dim myArticle As New Article(CurLocation, 0)
 
-        Return GetHTML(myImageList.ProcessPageRequest(CurLocation.ImageID, CurLocation), False, "")
+        Return GetHTML(myImageList.ProcessPageRequest(CurLocation.ImageID, CurLocation), False, String.Empty)
     End Function
 
     Public Function GetFormPageHTML() As String
@@ -405,7 +404,7 @@ Public Class ActiveCompany
     Public Function GetSiteLocationAdmin() As String
         wpm_ListPageURL = HttpContext.Current.Request.FilePath()
         LocationList.Sort()
-        Return ""
+        Return String.Empty
     End Function
     Public Function GetSitePartAdmin() As String
         Dim myLinkDirectory As New PartDirectory(Me)
@@ -622,7 +621,7 @@ Public Class ActiveCompany
 
     End Function
     Private Sub ProcessRSSLinkTypeCD(ByRef sThisLink As String, ByVal myrow As Part)
-        If myrow.LocationID = CurLocation.LocationID Or myrow.LocationID = "" Then
+        If myrow.LocationID = CurLocation.LocationID Or myrow.LocationID = String.Empty Then
             Dim myRSS As New UtilityRSSTools.RSSFeed(myrow.URL)
             sThisLink = myRSS.getRSSFeed(wpm_SiteGallery)
         End If
@@ -691,7 +690,7 @@ Public Class ActiveCompany
         Return bReturn
     End Function
     Private Shared Sub AddAdminLinksToModule(ByRef sThisLink As String, ByVal myrow As Part)
-        If sThisLink <> "" Then
+        If sThisLink <> String.Empty Then
             If wpm_IsAdmin Then
                 If myrow.PartSource = "SiteLink" Then
                     sThisLink = String.Format("{0}<div class=""admin"">(<a href=""{1}maint/default.aspx?type=Part&PartID={2}"">edit {3}</a>)</div>",
@@ -755,14 +754,14 @@ Public Class ActiveCompany
                 Case Else
                     ' do nothing
             End Select
-            sThisLink = ""
+            sThisLink = String.Empty
         Next
     End Sub
     Private Function ReplaceLinkTags(ByRef sbContent As StringBuilder) As Boolean
-        Dim sLeftLinks As String = ""
-        Dim sRightLinks As String = ""
-        Dim sCenterLinks As String = ""
-        Dim sThisLink As String = ("")
+        Dim sLeftLinks As String = String.Empty
+        Dim sRightLinks As String = String.Empty
+        Dim sCenterLinks As String = String.Empty
+        Dim sThisLink As String = (String.Empty)
         If (InStr(1, sbContent.ToString, "~~LeftColumnLinks~~") > 0) _
           Or (InStr(1, sbContent.ToString, "~~RightColumnLinks~~") > 0) _
           Or (InStr(1, sbContent.ToString, "~~CenterColumnLinks~~") > 0) Then
@@ -771,13 +770,13 @@ Public Class ActiveCompany
             Else
                 ProcessActiveParts(sLeftLinks, sRightLinks, sCenterLinks, sThisLink)
                 If wpm_IsAdmin Then
-                    If (sRightLinks = "") Then
+                    If (sRightLinks = String.Empty) Then
                         sRightLinks = String.Format("<a href=""{0}maint/default.aspx?type=Part"">NO RIGHT LINKS</a>", wpm_SiteConfig.AdminFolder)
                     End If
-                    If (sLeftLinks = "") Then
+                    If (sLeftLinks = String.Empty) Then
                         sLeftLinks = String.Format("<a href=""{0}maint/default.aspx?type=Part"">NO LEFT LINKS</a>", wpm_SiteConfig.AdminFolder)
                     End If
-                    If (sCenterLinks = "") Then
+                    If (sCenterLinks = String.Empty) Then
                         sCenterLinks = String.Format("<a href=""{0}maint/default.aspx?type=Part"">NO CENTER LINKS</a>", wpm_SiteConfig.AdminFolder)
                     End If
                 End If
@@ -827,7 +826,7 @@ Public Class ActiveCompany
     End Function
     Private Function GetSiteTitle() As String
         Dim mySiteTitle As New StringBuilder
-        If CurLocation.LocationTitle = "" Then
+        If CurLocation.LocationTitle = String.Empty Then
             mySiteTitle.Append(CurCompany.CompanyTitle)
         Else
             mySiteTitle.Append(CurLocation.LocationTitle)
@@ -838,7 +837,7 @@ Public Class ActiveCompany
     End Function
     Private Function GetPageKeywords() As String
         Dim mySiteKeywords As New StringBuilder
-        If CurLocation.LocationKeywords = "" Then
+        If CurLocation.LocationKeywords = String.Empty Then
             mySiteKeywords.Append(CurCompany.CompanyKeywords)
         Else
             mySiteKeywords.Append(CurLocation.LocationKeywords)
@@ -849,7 +848,7 @@ Public Class ActiveCompany
     End Function
     Private Function GetPageDescription() As String
         Dim mySiteDescription As New StringBuilder
-        If CurLocation.LocationKeywords = "" Then
+        If CurLocation.LocationKeywords = String.Empty Then
             mySiteDescription.Append(CurCompany.CompanyDescription)
         Else
             mySiteDescription.Append(CurLocation.LocationDescription)
@@ -859,7 +858,7 @@ Public Class ActiveCompany
         Return mySiteDescription.ToString
     End Function
     Private Function GetPageAdmin() As String
-        Dim sReturn As String = ("")
+        Dim sReturn As String = (String.Empty)
         If wpm_IsAdmin Then
             Select Case CurLocation.RecordSource
                 Case "Page"
@@ -867,7 +866,7 @@ Public Class ActiveCompany
                 Case "Article"
                     sReturn = (String.Format("<div class=""wpmADMIN""><a href=""{0}maint/default.aspx?type=Location&LocationID={1}"">Location Properties</a> | <a href=""{2}AdminLink.aspx"">All Parts</a> | <a href=""{2}default.aspx"">Admin Home</a> </div>", wpm_SiteConfig.AdminFolder, CurLocation.LocationID, wpm_SiteConfig.AdminFolder()))
                 Case "Category"
-                    sReturn = (String.Format("<div class=""wpmADMIN""><a href=""{0}maint/default.aspx?type=Location&LocationID=CAT-{1}"">Location Properties</a> | <a href=""{2}AdminLink.aspx"">All Parts</a> | <a href=""{2}default.aspx"">Admin Home</a> </div>", wpm_SiteConfig.AdminFolder, Replace(CurLocation.LocationID, "CAT-", ""), wpm_SiteConfig.AdminFolder()))
+                    sReturn = (String.Format("<div class=""wpmADMIN""><a href=""{0}maint/default.aspx?type=Location&LocationID=CAT-{1}"">Location Properties</a> | <a href=""{2}AdminLink.aspx"">All Parts</a> | <a href=""{2}default.aspx"">Admin Home</a> </div>", wpm_SiteConfig.AdminFolder, Replace(CurLocation.LocationID, "CAT-", String.Empty), wpm_SiteConfig.AdminFolder()))
                 Case "Module"
                     sReturn = (String.Format("<div class=""wpmADMIN""><a href=""{0}maint/default.aspx?type=Location&LocationID={1}"">Location Properties</a> | <a href=""{2}AdminLink.aspx"">All Parts</a> | <a href=""{2}default.aspx"">Admin Home</a> </div>", wpm_SiteConfig.AdminFolder, CurLocation.LocationID, wpm_SiteConfig.AdminFolder()))
                 Case Else
@@ -925,10 +924,10 @@ Public Class ActiveCompany
     Private Sub ResetCurrentRow()
         With CurLocation
             .LocationTypeCD = "404"
-            .LocationID = ""
+            .LocationID = String.Empty
             .ArticleID = 0
-            .TransferURL = ""
-            .MainMenuLocationID = ""
+            .TransferURL = String.Empty
+            .MainMenuLocationID = String.Empty
             .LocationName = wpm_FileNotFound
             .LocationTitle = wpm_FileNotFound
         End With
@@ -1065,25 +1064,25 @@ Public Class ActiveCompany
         Else
             ' To Make this Easier, let's ignore case and spaces and apmersands and dashes
             StringOne = (StringOne.ToLower)
-            StringOne = Replace(StringOne, "/", "")
-            StringOne = Replace(StringOne, ".html", "")
-            StringOne = Replace(StringOne, ".htm", "")
+            StringOne = Replace(StringOne, "/", String.Empty)
+            StringOne = Replace(StringOne, ".html", String.Empty)
+            StringOne = Replace(StringOne, ".htm", String.Empty)
             StringOne = Replace(StringOne, "&amp;", "&")
-            StringOne = Replace(StringOne, "%20", "")
-            StringOne = Replace(StringOne, "-", "")
-            StringOne = Replace(StringOne, ":", "")
-            StringOne = Replace(StringOne, " ", "")
-            StringOne = Replace(StringOne, wpm_SiteConfig.DefaultExtension, "")
+            StringOne = Replace(StringOne, "%20", String.Empty)
+            StringOne = Replace(StringOne, "-", String.Empty)
+            StringOne = Replace(StringOne, ":", String.Empty)
+            StringOne = Replace(StringOne, " ", String.Empty)
+            StringOne = Replace(StringOne, wpm_SiteConfig.DefaultExtension, String.Empty)
             StringTwo = (StringTwo.ToLower)
-            StringTwo = Replace(StringTwo, "/", "")
-            StringTwo = Replace(StringTwo, ".html", "")
-            StringTwo = Replace(StringTwo, ".htm", "")
-            StringTwo = Replace(StringTwo, "%20", "")
-            StringTwo = Replace(StringTwo, " ", "")
+            StringTwo = Replace(StringTwo, "/", String.Empty)
+            StringTwo = Replace(StringTwo, ".html", String.Empty)
+            StringTwo = Replace(StringTwo, ".htm", String.Empty)
+            StringTwo = Replace(StringTwo, "%20", String.Empty)
+            StringTwo = Replace(StringTwo, " ", String.Empty)
             StringTwo = Replace(StringTwo, "&amp;", "&")
-            StringTwo = Replace(StringTwo, "-", "")
-            StringOne = Replace(StringOne, ":", "")
-            StringTwo = Replace(StringTwo, wpm_SiteConfig.DefaultExtension, "")
+            StringTwo = Replace(StringTwo, "-", String.Empty)
+            StringOne = Replace(StringOne, ":", String.Empty)
+            StringTwo = Replace(StringTwo, wpm_SiteConfig.DefaultExtension, String.Empty)
             If (StringOne = StringTwo) Then
                 bMatch = True
             Else

@@ -5,7 +5,7 @@
         Dim myPH As New LocationHistory() With {.PageName = PageName, .RequestURL = HttpContext.Current.Request.Url.AbsoluteUri}
         If myPH.RequestURL.Contains("?404;") Then
             myPH.RequestURL = myPH.RequestURL.Substring(myPH.RequestURL.LastIndexOf("?404;") + 5)
-            myPH.RequestURL = myPH.RequestURL.Replace(":80", "")
+            myPH.RequestURL = myPH.RequestURL.Replace(":80", String.Empty)
         End If
         If IsNothing(HttpContext.Current.Request.UrlReferrer) Then
             myPH.PageSource = "unknown"

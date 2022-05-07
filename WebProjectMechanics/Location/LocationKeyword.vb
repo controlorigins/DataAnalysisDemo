@@ -9,7 +9,7 @@ Public Class LocationKeyword
         _Code = value
     End Sub
     Public Sub New()
-        
+
     End Sub
 
 End Class

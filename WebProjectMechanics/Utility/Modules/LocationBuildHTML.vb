@@ -16,7 +16,7 @@ Public Module LocationBuildHTML
     Public Function wpm_SaveHTML(ByVal sPageName As String, ByVal sContent As String) As Boolean
         Dim sPath As String = wpm_GetHTMLFilePath(wpm_RemoveInvalidCharacters(sPageName))
         Dim bReturn As Boolean = False
-        If Trim(sPageName) <> "" Then
+        If Trim(sPageName) <> String.Empty Then
             sPath = sPath & ".html"
             bReturn = FileProcessing.CreateFile(sPath, sContent)
         End If
@@ -26,7 +26,7 @@ Public Module LocationBuildHTML
         If (IsSelected) Then
             Return wpm_BuildClassLink(myLoc, "selected")
         Else
-            Return wpm_BuildClassLink(myLoc, "")
+            Return wpm_BuildClassLink(myLoc, String.Empty)
         End If
     End Function
     Public Function wpm_BuildClassLink(ByRef myLoc As Location, ByVal LinkClass As String) As String

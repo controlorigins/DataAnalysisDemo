@@ -1,6 +1,6 @@
-﻿Imports System.Web.UI.DataVisualization.Charting
+﻿Imports System.IO
+Imports System.Web.UI.DataVisualization.Charting
 Imports System.Xml.Serialization
-Imports System.IO
 Public Class wpm_Chart
     Property ChartName As String
     Property ChartTitles As New List(Of String)

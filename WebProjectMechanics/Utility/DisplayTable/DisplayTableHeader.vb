@@ -105,7 +105,7 @@ Public Class DisplayTableHeader
                 newColumnName = myColName
         End Select
 
-        Dim newstring As String = ""
+        Dim newstring As String = String.Empty
         For i As Integer = 0 To newColumnName.Length - 1
             If Char.IsUpper(newColumnName(i)) AndAlso i > 0 Then
                 newstring += " "

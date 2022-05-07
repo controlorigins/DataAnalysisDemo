@@ -10,16 +10,16 @@ Public Class Parameter
     Public Property ParameterTemplate As String
     Public Property CompanySiteParameterID As integer
     Public Property CompanyID As String
-    Public Property CompanyNM As String 
+    Public Property CompanyNM As String
     Public Property SiteCategoryTypeID As String
-    Public Property SiteCategoryTypeNM As String 
+    Public Property SiteCategoryTypeNM As String
     Public Property LocationID As String
-    Public Property LocationNM As String 
+    Public Property LocationNM As String
     Public Property LocationGroupID As String
-    Public Property LocationGroupNM As String 
+    Public Property LocationGroupNM As String
     Public Property ParameterValue As String
-    Public Property ParameterID As String 
-    Public Property ParameterNM As String 
+    Public Property ParameterID As String
+    Public Property ParameterNM As String
 
     Private Sub PopulateDefault()
         SortOrder = 999
@@ -38,7 +38,7 @@ Public Class Parameter
                     LocationGroupID = wpm_GetDBString(myrow("SiteCategoryGroupID"))
                     SiteCategoryTypeID = wpm_GetDBString(myrow("SiteCategoryTypeID"))
                     ParameterTemplate = wpm_GetDBString(myrow("SiteParameterTemplate"))
-                    ParameterTypeID = wpm_GetDBInteger(myrow("SiteParameterTypeID"),0)
+                    ParameterTypeID = wpm_GetDBInteger(myrow("SiteParameterTypeID"), 0)
                     ParameterTypeDS = wpm_GetDBString(myrow("SiteParameterTypeDS"))
                     ParameterTypeNM = wpm_GetDBString(myrow("SiteParameterTypeNM"))
                     ParameterTypeOrder = wpm_GetDBInteger(myrow("SiteParameterTypeOrder"))

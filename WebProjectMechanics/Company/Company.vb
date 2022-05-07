@@ -1,8 +1,6 @@
-Imports System.Xml.Serialization
-Imports System.Text
 Imports System.Linq
-Imports System.Web
-
+Imports System.Text
+Imports System.Xml.Serialization
 
 <XmlRootAttribute("Company", _
  Namespace:="http://projectmechanics.com", IsNullable:=False)> _
@@ -56,21 +54,21 @@ Public Class Company
         Get
             Dim myArtilcleList As New ArticleList
             myArtilcleList.AddRange((From i In _Locations Where i.ArticleID > 0 And i.RecordSource = "Article"
-                                Select New Article With {.ArticleID = i.ArticleID,
-                                                         .ArticleAuthor = i.LocationAuthor,
-                                                         .ArticleBody = i.LocationBody,
-                                                         .ArticleDescription = i.LocationDescription,
-                                                         .ArticleModDate = i.ModifiedDT,
-                                                         .ArticleName = i.LocationName,
-                                                         .ArticlePageID = i.ParentLocationID,
-                                                         .ArticleSummary = i.LocationSummary,
-                                                         .ArticleURL = i.LocationURL,
-                                                         .CompanyID = CompanyID,
-                                                         .ContactID = "1",
-                                                         .IsArticleActive = i.ActiveFL,
-                                                         .IsArticleDefault = False,
-                                                         .PageName = i.LocationName,
-                                                         .RowsPerPage = i.RowsPerPage}).ToArray)
+                                     Select New Article With {.ArticleID = i.ArticleID,
+                                                              .ArticleAuthor = i.LocationAuthor,
+                                                              .ArticleBody = i.LocationBody,
+                                                              .ArticleDescription = i.LocationDescription,
+                                                              .ArticleModDate = i.ModifiedDT,
+                                                              .ArticleName = i.LocationName,
+                                                              .ArticlePageID = i.ParentLocationID,
+                                                              .ArticleSummary = i.LocationSummary,
+                                                              .ArticleURL = i.LocationURL,
+                                                              .CompanyID = CompanyID,
+                                                              .ContactID = "1",
+                                                              .IsArticleActive = i.ActiveFL,
+                                                              .IsArticleDefault = False,
+                                                              .PageName = i.LocationName,
+                                                              .RowsPerPage = i.RowsPerPage}).ToArray)
             Return myArtilcleList
         End Get
     End Property
@@ -126,7 +124,7 @@ Public Class Company
     Public Function GetCompanyFromDB(ByVal reqCompanyID As String, ByVal GroupID As String, ByVal OrderBy As String) As Boolean
         CompanyID = reqCompanyID
         Dim bReturn As Boolean = GetCompanyValues(CompanyID)
-        If Trim(OrderBy) = "" Then
+        If Trim(OrderBy) = String.Empty Then
             OrderBy = "ORDER"
         End If
         If bReturn Then
@@ -158,7 +156,7 @@ Public Class Company
         Return True
     End Function
     Public Function BuildPageArticle(ByRef myLocation As Location) As String
-        Dim sReturn As New StringBuilder("")
+        Dim sReturn As New StringBuilder(String.Empty)
         For Each myrow As Location In Locations
             If myLocation.RecordSource = "Article" Then
                 If myrow.RecordSource = "Article" Then
@@ -227,7 +225,7 @@ Public Class Company
         Return sReturn.ToString
     End Function
     Public Function BuildLinkListByParent(ByVal LocationID As String, ByVal ParentLocationID As String, ByVal SiteCategoryID As String) As String
-        Dim sReturn As New StringBuilder("")
+        Dim sReturn As New StringBuilder(String.Empty)
         Dim sParentPageName As String = String.Empty
 
         If ParentLocationID = String.Empty And SiteCategoryID = String.Empty Then
@@ -266,7 +264,7 @@ Public Class Company
     'This is a combination of a bread crumb menu with a children menu
     '<TODO> I imagine I should create subfunctions rather than copy/paste code
     Public Function BreadCrumbWithChildren(ByVal BreadCrumb As String, ByVal LocationID As String, ByVal ParentLocationID As String, ByVal SiteCategoryID As String) As String
-        Dim sReturn As New StringBuilder("")
+        Dim sReturn As New StringBuilder(String.Empty)
         Dim sParentPageName As String = String.Empty
 
         If ParentLocationID = String.Empty And SiteCategoryID = String.Empty Then
@@ -338,7 +336,7 @@ Public Class Company
                             Else
                                 sReturn.AppendLine("<li >")
                             End If
-                            sReturn.AppendLine(BuildClassLink(myLocation, "", False))
+                            sReturn.AppendLine(BuildClassLink(myLocation, String.Empty, False))
                             sReturn.AppendLine("</li>")
                         End If
                     End If
@@ -347,7 +345,7 @@ Public Class Company
             If sReturn.Length > 0 Then
                 If Level > 0 Then
                     sReturn.Append(vbCrLf)
-                    sReturn.Insert(0, String.Format("<ul class=""dropdown-menu multi-level"" role=""menu""><li>{0}</li>", BuildClassLink(ParentLocation, "", False)))
+                    sReturn.Insert(0, String.Format("<ul class=""dropdown-menu multi-level"" role=""menu""><li>{0}</li>", BuildClassLink(ParentLocation, String.Empty, False)))
                     sReturn.Append("</ul>")
                     sReturn.Append(vbCrLf)
                 Else
@@ -380,7 +378,7 @@ Public Class Company
                             Else
                                 sReturn.Append("<li class=""has-flyout"" >")
                             End If
-                            sReturn.Append(BuildClassLink(myrow, "", False))
+                            sReturn.Append(BuildClassLink(myrow, String.Empty, False))
                             sReturn.Append("<a href=""#"": class=""flyout-toggle""><span> </span></a>")
                             sReturn.Append(fndBuilNavBar(myrow.LocationID, LocationID, Level + 1))
                             sReturn.Append("</li>" & vbCrLf)
@@ -392,7 +390,7 @@ Public Class Company
                             Else
                                 sReturn.Append("<li >")
                             End If
-                            sReturn.Append(BuildClassLink(myrow, "", False))
+                            sReturn.Append(BuildClassLink(myrow, String.Empty, False))
                             sReturn.Append("</li>" & vbCrLf)
                         End If
                     End If
@@ -458,11 +456,11 @@ Public Class Company
             If sReturn.Length > 0 Then
                 If Level > 1 Then
                     sReturn.Append(vbCrLf)
-                    sReturn.Insert(0, String.Format("<div id=""g_{0}-{1}"" class=""yuimenu""><div class=""bd""><ul class=""SiteCategoryGroup{2}"">", Replace(GroupName, " ", ""), Replace(sPageName, " ", ""), GroupName))
+                    sReturn.Insert(0, String.Format("<div id=""g_{0}-{1}"" class=""yuimenu""><div class=""bd""><ul class=""SiteCategoryGroup{2}"">", Replace(GroupName, " ", String.Empty), Replace(sPageName, " ", String.Empty), GroupName))
                     sReturn.Append("</ul></div></div>")
                     sReturn.Append(vbCrLf)
                 Else
-                    sReturn.Insert(0, String.Format("<ul id=""g_{0}"">", Replace(GroupName, " ", "")))
+                    sReturn.Insert(0, String.Format("<ul id=""g_{0}"">", Replace(GroupName, " ", String.Empty)))
                     sReturn.Append("</ul>")
                 End If
             End If
@@ -470,11 +468,11 @@ Public Class Company
         Return sReturn.ToString
     End Function
     Public Function yuiBuildSiteCategoryGroupList(ByVal ParentLocationID As String, ByVal GroupName As String, ByVal LocationID As String, ByVal Level As Integer) As String
-        Dim LocationName As String = ("")
-        Dim sReturn As New StringBuilder("")
+        Dim LocationName As String = (String.Empty)
+        Dim sReturn As New StringBuilder(String.Empty)
         For Each myLocation As Location In Locations
             If (myLocation.LocationGroupNM = GroupName) Then
-                If (myLocation.ParentLocationID = ParentLocationID) Or (Level = 1 And myLocation.ParentLocationID = "") Then
+                If (myLocation.ParentLocationID = ParentLocationID) Or (Level = 1 And myLocation.ParentLocationID = String.Empty) Then
                     If myLocation.LocationID = LocationID Then
                         sReturn.Append("<li class=""yuimenuitem selected"">")
                         sReturn.Append(BuildClassLink(myLocation, "yuimenuitemlabel selected", True))
@@ -504,8 +502,8 @@ Public Class Company
         Return sReturn.ToString
     End Function
     Public Function yuiBuildSiteCategoryGroupBar(ByVal ParentLocationID As String, ByVal GroupName As String, ByVal LocationID As String, ByVal Level As Integer) As String
-        Dim sPageName As String = ("")
-        Dim sReturn As New StringBuilder("")
+        Dim sPageName As String = (String.Empty)
+        Dim sReturn As New StringBuilder(String.Empty)
         For Each myrow As Location In Locations
             If (myrow.RecordSource = "Category" And myrow.LocationGroupNM = GroupName) Then
                 If myrow.ParentLocationID = ParentLocationID Then
@@ -544,7 +542,7 @@ Public Class Company
     End Function
 
     Public Function BuildFoundationNavSection(ByVal ParentID As String, ByVal intLevel As Double) As String
-        Dim sReturn As New StringBuilder("")
+        Dim sReturn As New StringBuilder(String.Empty)
         If intLevel = 0 Then
             sReturn.Append(String.Format("<nav class=""top-bar"" data-topbar>{0}", vbCrLf))
             sReturn.Append(String.Format("<ul class=""title-area"">{0}", vbCrLf))
@@ -570,7 +568,7 @@ Public Class Company
         Return sReturn.ToString
     End Function
     Private Function BuildFoundationNavChild(ByVal ParentID As String, ByVal intLevel As Double) As String
-        Dim sReturn As New StringBuilder("")
+        Dim sReturn As New StringBuilder(String.Empty)
         sReturn.Append(String.Format("<ul class=""dropdown"">{0}", vbCrLf))
         For Each myLoc As Location In Locations.FindChildLocation(ParentID)
             If Locations.FindChildLocation(myLoc.LocationID).Count > 0 Then
@@ -587,7 +585,7 @@ Public Class Company
         Return sReturn.ToString
     End Function
     Public Function BuildTopMenuTree(ByVal ParentID As String, ByVal intLevel As Double, ByVal PageName As String) As String
-        Dim sReturn As New StringBuilder("")
+        Dim sReturn As New StringBuilder(String.Empty)
         For Each myRow As Location In Locations
             If (myRow.RecordSource = "Page") Then
                 If (ParentID = myRow.ParentLocationID) Then
@@ -618,7 +616,7 @@ Public Class Company
     End Function
 
     Public Function yuiBuildPageTree(ByVal ParentID As String, ByVal intLevel As Double, ByVal PageName As String) As String
-        Dim sReturn As New StringBuilder("")
+        Dim sReturn As New StringBuilder(String.Empty)
         For Each myRow As Location In Locations
             If (myRow.RecordSource = "Page") Then
                 If (ParentID = myRow.ParentLocationID) Then
@@ -639,7 +637,7 @@ Public Class Company
             If intLevel = 0 Then
                 sReturn.Insert(0, String.Format("<div id=""yuiMenuTree"" class=""yuimenubar yuimenubarnav"">{0}<div class=""bd"">{0}<ul class=""first-of-type"">{0}", vbCrLf))
             Else
-                sReturn.Insert(0, String.Format("<div id=""p_{0}"" class=""yuimenu"">{1}<div class=""bd"">{1}<ul>{1}", Replace(PageName, " ", ""), vbCrLf))
+                sReturn.Insert(0, String.Format("<div id=""p_{0}"" class=""yuimenu"">{1}<div class=""bd"">{1}<ul>{1}", Replace(PageName, " ", String.Empty), vbCrLf))
             End If
             sReturn.Append("</ul></div></div>" & vbCrLf)
         End If
@@ -658,7 +656,7 @@ Public Class Company
                             sReturn.Append(BuildClassLink(myrow, "selected", True))
                         Else
                             sReturn.Append("<li class=""active"" onmouseover=""this.className='active_over'"" onmouseout=""this.className='active'"">")
-                            sReturn.Append(BuildClassLink(myrow, "", True))
+                            sReturn.Append(BuildClassLink(myrow, String.Empty, True))
                         End If
                         sReturn.Append(mooBuildPageList(myrow.LocationID, LocationID, Level + 1))
                         sReturn.Append("</li>" & vbCrLf)
@@ -685,11 +683,11 @@ Public Class Company
 
 
     Public Function BuildSiteCategoryGroupList(ByVal ParentLocationID As String, ByVal GroupName As String, ByVal LocationID As String, ByVal Level As Integer, ByVal GroupDescription As String) As String
-        Dim sPageName As String = ("")
-        Dim sReturn As New StringBuilder("")
+        Dim sPageName As String = (String.Empty)
+        Dim sReturn As New StringBuilder(String.Empty)
         For Each myrow As Location In Locations
             If (myrow.LocationGroupNM = GroupName) Then
-                If (myrow.ParentLocationID = ParentLocationID) Or (Level = 1 And myrow.ParentLocationID = "") Then
+                If (myrow.ParentLocationID = ParentLocationID) Or (Level = 1 And myrow.ParentLocationID = String.Empty) Then
                     If myrow.LocationID = LocationID Then
                         sReturn.Append("<li class=""menuitem selected"">")
                         sReturn.Append(BuildClassLink(myrow, "menuitemlabel selected", True))
@@ -723,7 +721,7 @@ Public Class Company
     End Function
     Public Function BuildMenuChild(ByVal LocationID As String, ByVal ParentLocationID As String, ByVal DefaultParentLocationID As String, ByVal ULClassName As String, ByVal LIClassName As String) As String
 
-        Dim sReturn As New StringBuilder("")
+        Dim sReturn As New StringBuilder(String.Empty)
         For Each myrow As Location In Locations
             If (myrow.RecordSource = "Page") Then
                 If myrow.ParentLocationID = ParentLocationID Then
@@ -742,7 +740,7 @@ Public Class Company
             sReturn.Insert(0, String.Format("<ul class=""{0}"">{1}", ULClassName, vbCrLf))
             sReturn.Append("</ul>" & vbCrLf)
         Else
-            If ParentLocationID <> DefaultParentLocationID And DefaultParentLocationID <> "" Then
+            If ParentLocationID <> DefaultParentLocationID And DefaultParentLocationID <> String.Empty Then
                 sReturn.Append(BuildMenuChild(LocationID, DefaultParentLocationID, DefaultParentLocationID, ULClassName, LIClassName))
             End If
         End If
@@ -752,10 +750,10 @@ Public Class Company
         Return Locations.BuildPageTree(ParentID, intLevel, sULClassName)
     End Function
     Public Function BuildLinkMenu(ByVal RequestLevel As Integer, ByVal DefaultParentLocationID As String, ByVal myReturnTemplate As String, ByRef CurrentMapRow As Location) As String
-        Dim ReturnString As String = ("")
+        Dim ReturnString As String = (String.Empty)
         Dim LocationID As String = CurrentMapRow.LocationID
         Dim ParentLocationID As String = CurrentMapRow.ParentLocationID
-        Dim ParentPageName As String = ""
+        Dim ParentPageName As String = String.Empty
         If CurrentMapRow.HideGlobalContent Then
             ReturnString = String.Empty
         Else
@@ -773,17 +771,17 @@ Public Class Company
                         Exit For
                     End If
                 Next
-                If DefaultParentLocationID = "" Then
+                If DefaultParentLocationID = String.Empty Then
                     DefaultParentLocationID = ParentLocationID
                 End If
                 ReturnString = BuildMenuChild(LocationID, ParentLocationID, DefaultParentLocationID, String.Empty, String.Empty)
             ElseIf RequestLevel = CurrentMapRow.LevelNBR + 1 Then
                 ReturnString = BuildMenuChild(LocationID, LocationID, DefaultParentLocationID, String.Empty, String.Empty)
             End If
-            If ParentPageName = "" Then
+            If ParentPageName = String.Empty Then
                 ParentPageName = CurrentMapRow.LocationName
             End If
-            If Not (Trim(ReturnString) = "") Then
+            If Not (Trim(ReturnString) = String.Empty) Then
                 ReturnString = Replace(myReturnTemplate, "~~LINKS~~", ReturnString)
                 ReturnString = Replace(ReturnString, "~~ParentPageName~~", ParentPageName)
             End If
@@ -805,11 +803,11 @@ Public Class Company
         sbContent.Replace("~~SiteDomainName~~", DomainName)
         sbContent.Replace("~~SiteDescription~~", CompanyDescription)
         sbContent.Replace("~~SiteKeywords~~", CompanyKeywords)
-        sbContent.Replace("~~SiteMap~~", String.Format("<div class=""sitemap""><ul class=""sitemap"">{0}{1}</ul></div>{0}", vbCrLf, Locations.BuildPageTree("", 0, "sitemap")))
-        sbContent.Replace("~~SiteTree~~", Locations.BuildPageTree("", 0, "sitemap"))
+        sbContent.Replace("~~SiteMap~~", String.Format("<div class=""sitemap""><ul class=""sitemap"">{0}{1}</ul></div>{0}", vbCrLf, Locations.BuildPageTree(String.Empty, 0, "sitemap")))
+        sbContent.Replace("~~SiteTree~~", Locations.BuildPageTree(String.Empty, 0, "sitemap"))
         sbContent.Replace("~~SiteCity~~", SiteCity)
         sbContent.Replace("~~SiteCityDash~~", wpm_FormatPageNameForURL(SiteCity))
-        sbContent.Replace("~~SiteCityNoSpace~~", Replace(SiteCity, " ", ""))
+        sbContent.Replace("~~SiteCityNoSpace~~", Replace(SiteCity, " ", String.Empty))
         sbContent.Replace("~~SiteState~~", SiteState)
         sbContent.Replace("~~SiteCountry~~", SiteCountry)
         Return True
@@ -879,7 +877,7 @@ Public Class Company
         If (IsSelected) Then
             Return BuildClassLink(myRow, "selected", True)
         Else
-            Return BuildClassLink(myRow, "", True)
+            Return BuildClassLink(myRow, String.Empty, True)
         End If
     End Function
     Public Function SetCompanyValue(ByVal myrow As DataRow) As Company
@@ -946,7 +944,7 @@ Public Class Company
     End Function
 
     Private Function GetHostName() As String
-        Return Replace(HttpContext.Current.Request.ServerVariables.Item("SERVER_NAME"), "www.", "")
+        Return Replace(HttpContext.Current.Request.ServerVariables.Item("SERVER_NAME"), "www.", String.Empty)
     End Function
 
     Private Function SaveCompanyProfileXML() As Boolean

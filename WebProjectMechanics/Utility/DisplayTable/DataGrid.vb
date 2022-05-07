@@ -1,6 +1,4 @@
-﻿Imports System.Collections.Generic
-Imports System.Data
-Imports System.Linq
+﻿Imports System.Linq
 Imports System.Reflection
 Imports System.Text
 
@@ -296,8 +294,8 @@ Public Class wpm_DataGrid
             End If
         End Sub
         Private Sub FixColumnName()
-            DisplayName = DisplayName.Replace(" ", "")
-            DisplayName = DisplayName.Replace("?", "")
+            DisplayName = DisplayName.Replace(" ", String.Empty)
+            DisplayName = DisplayName.Replace("?", String.Empty)
         End Sub
 
 
@@ -308,7 +306,7 @@ Public Class wpm_DataGrid
         End Sub
 
         Public Function GetFormatTableCell(PropValue As String, LinkURL As String) As String
-            Dim myReturn As String = ""
+            Dim myReturn As String = String.Empty
             If IsNumeric(PropValue) Then
                 Select Case Format
                     Case DisplayFormat.Currency
@@ -352,7 +350,7 @@ Public Class wpm_DataGrid
         End Function
 
         Public Function GetFormatTableCell(gRow As GridRow) As String
-            Dim myReturn As String = ""
+            Dim myReturn As String = String.Empty
             Dim PropValue As String = gRow.Value(Index)
 
             If String.IsNullOrEmpty(LinkPath) Then
@@ -488,7 +486,7 @@ Public Class wpm_DataGrid
                 Exit Select
         End Select
 
-        Dim newstring As String = ""
+        Dim newstring As String = String.Empty
         For i As Integer = 0 To newColumnName.Length - 1
             If Char.IsUpper(newColumnName(i)) AndAlso i > 0 Then
                 newstring += " "
@@ -561,7 +559,7 @@ Public Class wpm_DataGrid
         Return myString
     End Function
     Public Shared Function ClearLineFeeds(sTextToCovert As String) As String
-        sTextToCovert = sTextToCovert.Replace(vbLf, "")
+        sTextToCovert = sTextToCovert.Replace(vbLf, String.Empty)
         Return sTextToCovert
     End Function
     Public Enum DisplayFormat

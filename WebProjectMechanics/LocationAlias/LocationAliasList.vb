@@ -1,7 +1,7 @@
-Imports System.Text.RegularExpressions
-Imports System.Text
-Imports System.Net
 Imports System.IO
+Imports System.Net
+Imports System.Text
+Imports System.Text.RegularExpressions
 
 Public Class LocationAliasList
     Inherits List(Of LocationAlias)

@@ -33,7 +33,7 @@ Public Class tokenizer
 
     Friend Sub RaiseUnexpectedToken(Optional ByVal msg As String = Nothing)
         If Len(msg) = 0 Then
-            msg = ""
+            msg = String.Empty
         Else
             msg &= "; "
         End If

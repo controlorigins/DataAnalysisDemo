@@ -25,10 +25,10 @@ using System;
 
 namespace GenericParsing
 {
-  /* The following code is commented out because it is not needed.  If supporting legacy
-   * code prior to generics, you may want to use this class as an alternative to List<string>,
-   * if working under the Compact Framework.
-   */
+    /* The following code is commented out because it is not needed.  If supporting legacy
+     * code prior to generics, you may want to use this class as an alternative to List<string>,
+     * if working under the Compact Framework.
+     */
 
 #if false
 
@@ -44,13 +44,13 @@ namespace GenericParsing
     /// </summary>
     internal class StringArray
     {
-        #region Constants
+    #region Constants
 
         private const int INITIAL_SIZE = 16;
 
-        #endregion Constants
+    #endregion Constants
 
-        #region Constructors
+    #region Constructors
 
         /// <summary>
         ///   Create a new <see cref="StringArray" /> with default size.
@@ -72,9 +72,9 @@ namespace GenericParsing
         }
 
 
-        #endregion Constructors
+    #endregion Constructors
 
-        #region Public Properties
+    #region Public Properties
 
         /// <summary>
         /// Gets the allocated size of the <see cref="StringArray" />.
@@ -146,9 +146,9 @@ namespace GenericParsing
         }
 
 
-        #endregion Public Properties
+    #endregion Public Properties
 
-        #region Public Methods
+    #region Public Methods
 
         /// <summary>
         /// Removes all of the items from the <see cref="StringArray" />.
@@ -175,9 +175,9 @@ namespace GenericParsing
         }
 
 
-        #endregion Public Methods
+    #endregion Public Methods
 
-        #region Private Methods
+    #region Private Methods
 
         /// <summary>
         /// Ensures that the <see cref="StringArray" /> has atleast a certain size.
@@ -197,14 +197,14 @@ namespace GenericParsing
         }
 
 
-        #endregion Private Methods
+    #endregion Private Methods
 
-        #region Private Members
+    #region Private Members
 
         private int m_intItemCount;
         private string[] m_saCollection;
 
-        #endregion Private Members
+    #endregion Private Members
     }
 
 #endif

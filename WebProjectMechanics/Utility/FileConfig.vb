@@ -1,4 +1,3 @@
-Imports System.Web.Configuration
 Public Class FileConfig
     Inherits ConfigurationBase
     Implements IConfig

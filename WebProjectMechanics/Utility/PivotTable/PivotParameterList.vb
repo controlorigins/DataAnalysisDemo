@@ -1,5 +1,5 @@
-Imports System.Xml.Serialization
 Imports System.IO
+Imports System.Xml.Serialization
 
 Public Class PivotParameterList
     Inherits List(Of PivotParameter)
@@ -56,7 +56,7 @@ Public Class PivotParameterList
                 objStreamReader.Close()
             End Using
         Catch ex As Exception
-            ApplicationLogging.ErrorLog("PivotParameterList.GetXML",ex.ToString)
+            ApplicationLogging.ErrorLog("PivotParameterList.GetXML", ex.ToString)
         End Try
         Return mySurvey
     End Function

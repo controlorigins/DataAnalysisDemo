@@ -1,4 +1,3 @@
-Imports System.Net.Mail
 Public Class UtilityMailer
     Implements IUtilityMailer
     Public Property FromEmail() As String Implements IUtilityMailer.FromEmail

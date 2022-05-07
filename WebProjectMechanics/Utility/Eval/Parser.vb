@@ -47,55 +47,55 @@ Friend Class parser
                     ParseIdentifier(ValueLeft)
                     Exit Do
                 Case eTokenType.value_true
-                        ValueLeft = New opCodeImmediate(EvalType.Boolean, True)
-                        mTokenizer.NextToken()
-                        Exit Do
+                    ValueLeft = New opCodeImmediate(EvalType.Boolean, True)
+                    mTokenizer.NextToken()
+                    Exit Do
                 Case eTokenType.value_false
-                        ValueLeft = New opCodeImmediate(EvalType.Boolean, False)
-                        mTokenizer.NextToken()
-                        Exit Do
+                    ValueLeft = New opCodeImmediate(EvalType.Boolean, False)
+                    mTokenizer.NextToken()
+                    Exit Do
                 Case eTokenType.value_string
-                        ValueLeft = New opCodeImmediate(EvalType.String, mTokenizer.value.ToString)
-                        mTokenizer.NextToken()
-                        Exit Do
+                    ValueLeft = New opCodeImmediate(EvalType.String, mTokenizer.value.ToString)
+                    mTokenizer.NextToken()
+                    Exit Do
                 Case eTokenType.value_number
-                        Try
-                            ValueLeft = New opCodeImmediate(EvalType.Number, Double.Parse( _
-                                mTokenizer.value.ToString, _
-                                Globalization.NumberStyles.Float, _
-                                System.Globalization.CultureInfo.InvariantCulture))
-                        Catch ex As Exception
-                            mTokenizer.RaiseError(String.Format("Invalid number {0}", mTokenizer.value.ToString))
-                        End Try
-                        mTokenizer.NextToken()
-                        Exit Do
+                    Try
+                        ValueLeft = New opCodeImmediate(EvalType.Number, Double.Parse( _
+                            mTokenizer.value.ToString, _
+                            Globalization.NumberStyles.Float, _
+                            System.Globalization.CultureInfo.InvariantCulture))
+                    Catch ex As Exception
+                        mTokenizer.RaiseError(String.Format("Invalid number {0}", mTokenizer.value.ToString))
+                    End Try
+                    mTokenizer.NextToken()
+                    Exit Do
                 Case eTokenType.value_date
-                        Try
-                            ValueLeft = New opCodeImmediate(EvalType.Date, mTokenizer.value.ToString)
-                        Catch ex As Exception
-                            mTokenizer.RaiseError(String.Format("Invalid date {0}, it should be #DD/MM/YYYY hh:mm:ss#", mTokenizer.value.ToString))
-                        End Try
-                        mTokenizer.NextToken()
-                        Exit Do
+                    Try
+                        ValueLeft = New opCodeImmediate(EvalType.Date, mTokenizer.value.ToString)
+                    Catch ex As Exception
+                        mTokenizer.RaiseError(String.Format("Invalid date {0}, it should be #DD/MM/YYYY hh:mm:ss#", mTokenizer.value.ToString))
+                    End Try
+                    mTokenizer.NextToken()
+                    Exit Do
                 Case eTokenType.open_parenthesis
+                    mTokenizer.NextToken()
+                    ValueLeft = ParseExpr(Nothing, ePriority.none)
+                    If mTokenizer.type = eTokenType.close_parenthesis Then
+                        ' good we eat the end parenthesis and continue ...
                         mTokenizer.NextToken()
-                        ValueLeft = ParseExpr(Nothing, ePriority.none)
-                        If mTokenizer.type = eTokenType.close_parenthesis Then
-                            ' good we eat the end parenthesis and continue ...
-                            mTokenizer.NextToken()
-                            Exit Do
-                        Else
-                            mTokenizer.RaiseUnexpectedToken("End parenthesis not found")
-                        End If
+                        Exit Do
+                    Else
+                        mTokenizer.RaiseUnexpectedToken("End parenthesis not found")
+                    End If
                 Case eTokenType.operator_if
-                        ' first check functions
-                        Dim parameters As New ArrayList  ' parameters... 
-                        mTokenizer.NextToken()
+                    ' first check functions
+                    Dim parameters As New ArrayList  ' parameters... 
+                    mTokenizer.NextToken()
 
-                        parameters = ParseParameters(False)
-                        Exit Do
+                    parameters = ParseParameters(False)
+                    Exit Do
                 Case Else
-                        Exit Do
+                    Exit Do
             End Select
         Loop
         If ValueLeft Is Nothing Then

@@ -252,10 +252,7 @@ namespace GenericParsing
         /// </value>
         public bool IsDisposed
         {
-            get
-            {
-                return this.m_blnDisposed;
-            }
+            get { return this.m_blnDisposed; }
         }
         /// <summary>
         ///   Gets or sets an integer array indicating the number of characters needed for each column.
@@ -274,10 +271,7 @@ namespace GenericParsing
         /// <exception cref="InvalidOperationException">Attempting to modify the configuration, while parsing.</exception>
         public int[] ColumnWidths
         {
-            get
-            {
-                return GenericParser.CloneArray(this.m_iaColumnWidths);
-            }
+            get { return GenericParser.CloneArray(this.m_iaColumnWidths); }
             set
             {
                 if (this.m_ParserState == ParserState.Parsing)
@@ -329,10 +323,7 @@ namespace GenericParsing
         /// <exception cref="InvalidOperationException">Attempting to modify the configuration, while parsing.</exception>
         public int MaxBufferSize
         {
-            get
-            {
-                return this.m_intMaxBufferSize;
-            }
+            get { return this.m_intMaxBufferSize; }
             set
             {
                 if (this.m_ParserState == ParserState.Parsing)
@@ -362,10 +353,7 @@ namespace GenericParsing
         /// <exception cref="InvalidOperationException">Attempting to modify the configuration, while parsing.</exception>
         public int MaxRows
         {
-            get
-            {
-                return this.m_intMaxRows;
-            }
+            get { return this.m_intMaxRows; }
             set
             {
                 if (this.m_ParserState == ParserState.Parsing)
@@ -397,10 +385,7 @@ namespace GenericParsing
         /// <exception cref="InvalidOperationException">Attempting to modify the configuration, while parsing.</exception>
         public int SkipStartingDataRows
         {
-            get
-            {
-                return this.m_intSkipStartingDataRows;
-            }
+            get { return this.m_intSkipStartingDataRows; }
             set
             {
                 if (this.m_ParserState == ParserState.Parsing)
@@ -419,10 +404,7 @@ namespace GenericParsing
         /// <remarks>The DataRowNumber property is read-only.</remarks>
         public int DataRowNumber
         {
-            get
-            {
-                return this.m_intDataRowNumber;
-            }
+            get { return this.m_intDataRowNumber; }
         }
         /// <summary>
         ///   Gets or sets how many rows in the file have been parsed.
@@ -432,10 +414,7 @@ namespace GenericParsing
         /// rows possible (header, comment, and data).</remarks>
         public int FileRowNumber
         {
-            get
-            {
-                return this.m_intFileRowNumber;
-            }
+            get { return this.m_intFileRowNumber; }
         }
         /// <summary>
         ///   Gets or sets the expected number of columns to find in the data.  If
@@ -461,10 +440,7 @@ namespace GenericParsing
         /// <exception cref="InvalidOperationException">Attempting to modify the configuration, while parsing.</exception>
         public int ExpectedColumnCount
         {
-            get
-            {
-                return this.m_intExpectedColumnCount;
-            }
+            get { return this.m_intExpectedColumnCount; }
             set
             {
                 if (this.m_ParserState == ParserState.Parsing)
@@ -510,10 +486,7 @@ namespace GenericParsing
         /// <exception cref="InvalidOperationException">Attempting to modify the configuration, while parsing.</exception>
         public bool FirstRowHasHeader
         {
-            get
-            {
-                return this.m_blnFirstRowHasHeader;
-            }
+            get { return this.m_blnFirstRowHasHeader; }
             set
             {
                 if (this.m_ParserState == ParserState.Parsing)
@@ -549,10 +522,7 @@ namespace GenericParsing
         /// <exception cref="InvalidOperationException">Attempting to modify the configuration, while parsing.</exception>
         public bool TrimResults
         {
-            get
-            {
-                return this.m_blnTrimResults;
-            }
+            get { return this.m_blnTrimResults; }
             set
             {
                 if (this.m_ParserState == ParserState.Parsing)
@@ -586,10 +556,7 @@ namespace GenericParsing
         /// <exception cref="InvalidOperationException">Attempting to modify the configuration, while parsing.</exception>
         public bool StripControlChars
         {
-            get
-            {
-                return this.m_blnStripControlChars;
-            }
+            get { return this.m_blnStripControlChars; }
             set
             {
                 if (this.m_ParserState == ParserState.Parsing)
@@ -620,10 +587,7 @@ namespace GenericParsing
         /// <exception cref="InvalidOperationException">Attempting to modify the configuration, while parsing.</exception>
         public bool SkipEmptyRows
         {
-            get
-            {
-                return this.m_blnSkipEmptyRows;
-            }
+            get { return this.m_blnSkipEmptyRows; }
             set
             {
                 if (this.m_ParserState == ParserState.Parsing)
@@ -637,10 +601,7 @@ namespace GenericParsing
         /// </summary>
         public bool IsCurrentRowEmpty
         {
-            get
-            {
-                return this.m_blnIsCurrentRowEmpty;
-            }
+            get { return this.m_blnIsCurrentRowEmpty; }
         }
         /// <summary>
         ///   Gets or sets the <see cref="FieldType"/> of the data encoded in the rows.
@@ -659,10 +620,7 @@ namespace GenericParsing
         /// <exception cref="InvalidOperationException">Attempting to modify the configuration, while parsing.</exception>
         public FieldType TextFieldType
         {
-            get
-            {
-                return this.m_textFieldType;
-            }
+            get { return this.m_textFieldType; }
             set
             {
                 if (this.m_ParserState == ParserState.Parsing)
@@ -707,10 +665,7 @@ namespace GenericParsing
         /// <exception cref="InvalidOperationException">Attempting to modify the configuration, while parsing.</exception>
         public bool FirstRowSetsExpectedColumnCount
         {
-            get
-            {
-                return this.m_blnFirstRowSetsExpectedColumnCount;
-            }
+            get { return this.m_blnFirstRowSetsExpectedColumnCount; }
             set
             {
                 if (this.m_ParserState == ParserState.Parsing)
@@ -731,10 +686,7 @@ namespace GenericParsing
         /// information about the internal state of the parser.</value>
         public ParserState State
         {
-            get
-            {
-                return this.m_ParserState;
-            }
+            get { return this.m_ParserState; }
         }
         /// <summary>
         ///   Gets or sets the character used to match the end of a column of data.
@@ -755,10 +707,7 @@ namespace GenericParsing
         /// <exception cref="InvalidOperationException">Attempting to modify the configuration, while parsing.</exception>
         public char? ColumnDelimiter
         {
-            get
-            {
-                return m_chColumnDelimiter;
-            }
+            get { return m_chColumnDelimiter; }
             set
             {
                 if (this.m_ParserState == ParserState.Parsing)
@@ -801,10 +750,7 @@ namespace GenericParsing
         /// <exception cref="InvalidOperationException">Attempting to modify the configuration, while parsing.</exception>
         public char? TextQualifier
         {
-            get
-            {
-                return this.m_chTextQualifier;
-            }
+            get { return this.m_chTextQualifier; }
             set
             {
                 if (this.m_ParserState == ParserState.Parsing)
@@ -838,10 +784,7 @@ namespace GenericParsing
         /// <exception cref="InvalidOperationException">Attempting to modify the configuration, while parsing.</exception>
         public char? EscapeCharacter
         {
-            get
-            {
-                return this.m_chEscapeCharacter;
-            }
+            get { return this.m_chEscapeCharacter; }
             set
             {
                 if (this.m_ParserState == ParserState.Parsing)
@@ -868,10 +811,7 @@ namespace GenericParsing
         /// <exception cref="InvalidOperationException">Attempting to modify the configuration, while parsing.</exception>
         public char? CommentCharacter
         {
-            get
-            {
-                return this.m_chCommentCharacter;
-            }
+            get { return this.m_chCommentCharacter; }
             set
             {
                 if (this.m_ParserState == ParserState.Parsing)
@@ -891,13 +831,7 @@ namespace GenericParsing
         /// </remarks>
         public string this[int intColumnIndex]
         {
-            get
-            {
-                if ((intColumnIndex > -1) && (intColumnIndex < this.m_lstData.Count))
-                    return this.m_lstData[intColumnIndex];
-                else
-                    return null;
-            }
+            get { if ((intColumnIndex > -1) && (intColumnIndex < this.m_lstData.Count)) return this.m_lstData[intColumnIndex]; else return null; }
         }
         /// <summary>
         ///   Gets the data found in the current row of data by the column name.
@@ -910,10 +844,7 @@ namespace GenericParsing
         /// </remarks>
         public string this[string strColumnName]
         {
-            get
-            {
-                return this[this._GetColumnIndex(strColumnName)];
-            }
+            get { return this[this._GetColumnIndex(strColumnName)]; }
         }
         /// <summary>
         ///   Gets the number of columns found in the current row.
@@ -922,10 +853,7 @@ namespace GenericParsing
         /// <remarks>The <see cref="ColumnCount"/> property is read-only.  The number of columns per row can differ, if allowed.</remarks>
         public int ColumnCount
         {
-            get
-            {
-                return this.m_lstData.Count;
-            }
+            get { return this.m_lstData.Count; }
         }
         /// <summary>
         ///   Gets the largest column count found thusfar from parsing.
@@ -934,10 +862,7 @@ namespace GenericParsing
         /// <remarks>The <see cref="LargestColumnCount"/> property is read-only. The LargestColumnCount can increase due to rows with additional data.</remarks>
         public int LargestColumnCount
         {
-            get
-            {
-                return this.m_lstColumnNames.Count;
-            }
+            get { return this.m_lstColumnNames.Count; }
         }
 
         /// <summary>

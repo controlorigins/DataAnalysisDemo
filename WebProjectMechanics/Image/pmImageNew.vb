@@ -1,7 +1,6 @@
 ﻿Imports System.Drawing
 Imports System.Drawing.Imaging
 Imports System.IO
-Imports System.Web
 
 Public Class pmImageNew
     Implements IDisposable
@@ -43,11 +42,11 @@ Public Class pmImageNew
                 Return VBOverlay(Image.FromFile(HttpContext.Current.Server.MapPath(SourceURL)))
             End If
         Else
-            If Width<10 then 
+            If Width < 10 then
                 Width = 150
             End If
-            If Height<10 then 
-                Height=150
+            If Height < 10 then
+                Height = 150
             End If
             Dim rectangleFont = New Font("Arial", 14, FontStyle.Bold)
             Dim bitmap = New Bitmap(Width, Height, PixelFormat.Format24bppRgb)
@@ -227,7 +226,7 @@ Public Class pmImageNew
 
     ' Draw text directly onto an image (scaled for best-fit)
     Public Function VBOverlay(ByVal img As Image) As Bitmap
-        If OverlayText > "" AndAlso PercentFill > 0 Then
+        If OverlayText > String.Empty AndAlso PercentFill > 0 Then
             ' create bitmap and graphics used for drawing
             ' "clone" image but use 24RGB format
             Dim bmp As New Bitmap(img.Width, img.Height, PixelFormat.Format24bppRgb)

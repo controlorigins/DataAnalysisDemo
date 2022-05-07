@@ -1,5 +1,4 @@
 Imports System.Data.OleDb
-Imports System.Data.SqlClient
 
 Public Class Part
     Public Property Title As String
@@ -10,9 +9,9 @@ Public Class Part
     Public Property PartCategoryTitle As String
     Public Property PartID As String
     Public Property SiteCategoryTypeID As String
-    Public Property SiteCategorytypeNM As String 
+    Public Property SiteCategorytypeNM As String
     Public Property SiteCategoryGroupID As String
-    Public Property SiteCategoryGroupNM As String 
+    Public Property SiteCategoryGroupNM As String
     Public Property View As Boolean
     Public Property ModifiedDT As Date
     Public Property PartSortOrder As Integer
@@ -20,8 +19,8 @@ Public Class Part
     Public Property AmazonIndex As String
     Public Property PartSource As String
     Public Property CompanyID As String
-    Public Property CompanyNM As String 
-    Public Property LocationNM As String 
+    Public Property CompanyNM As String
+    Public Property LocationNM As String
     Private _LocationID As String
     Public Property LocationID() As String
         Get
@@ -29,7 +28,7 @@ Public Class Part
         End Get
         Set(ByVal value As String)
             If value = "CAT-" Then
-                value = ""
+                value = String.Empty
             End If
             _LocationID = value
         End Set
@@ -54,7 +53,7 @@ Public Class Part
     End Sub
 
     Private Sub UpdatePartDB(ByRef iRowsAffected As Integer)
-        Dim sSQL As String = ""
+        Dim sSQL As String = String.Empty
         If PartSource = "Link" Then
             sSQL = "UPDATE [Link] SET [CompanyID] =@CompanyID, [LinkTypeCD] =@LinkTypeCD, [CategoryID] =@CategoryID, [PageID] =@PageID, [Title] =@Title, [Description] =@Description, [URL] = @URL, [DateAdd] =@DateAdd, [Ranks] = @Ranks, [Views] = @Views, [UserName] = @UserName, [UserID] = @UserID, [ASIN] = @ASIN, [SiteCategoryGroupID] = @SiteCategoryGroupID WHERE [ID] = @ID"
             Using conn As New OleDbConnection(wpm_SQLDBConnString)
@@ -98,8 +97,8 @@ Public Class Part
                         wpm_AddParameterStringValue("@UserID", UserID, cmd)
                         wpm_AddParameterStringValue("@ASIN", AmazonIndex, cmd)
                         wpm_AddParameterValue("@Views", True, SqlDbType.Binary, cmd)
-                        wpm_AddParameterStringValue("@SiteCategoryID",LocationID.Replace("CAT-",String.Empty),cmd)
-                        wpm_AddParameterStringValue("@CompanyID", CompanyID,cmd)
+                        wpm_AddParameterStringValue("@SiteCategoryID", LocationID.Replace("CAT-", String.Empty), cmd)
+                        wpm_AddParameterStringValue("@CompanyID", CompanyID, cmd)
                         wpm_AddParameterStringValue("@LinkID", PartID, cmd)
                         iRowsAffected = cmd.ExecuteNonQuery()
                     Catch ex As Exception
@@ -116,7 +115,7 @@ Public Class Part
 
     Private Sub InsertPartDB(ByRef iRowsAffected As Integer)
 
-        Dim sSQL As String = ""
+        Dim sSQL As String = String.Empty
         If PartSource = "Link" Then
             sSQL = "INSERT INTO [Link] ( [CompanyID], [LinkTypeCD], [CategoryID], [PageID], [Title], [Description], [URL], [DateAdd], [Ranks], [Views], [UserName], [UserID], [ASIN], [SiteCategoryGroupID]) VALUES (@CompanyID,@LinkTypeCD,@CategoryID, @PageID, @Title, @Description, @URL, @DateAdd, @Ranks, @Views, @UserName, @UserID,  @ASIN, @SiteCategoryGroupID )"
             Using conn As New OleDbConnection(wpm_SQLDBConnString)
@@ -160,7 +159,7 @@ Public Class Part
                         wpm_AddParameterStringValue("@UserID", UserID, cmd)
                         wpm_AddParameterStringValue("@ASIN", AmazonIndex, cmd)
                         wpm_AddParameterValue("@Views", True, SqlDbType.Binary, cmd)
-                        wpm_AddParameterValue("@SiteCategoryID",LocationID.Replace("CAT-",String.Empty), SqlDbType.Int, cmd)
+                        wpm_AddParameterValue("@SiteCategoryID", LocationID.Replace("CAT-", String.Empty), SqlDbType.Int, cmd)
                         wpm_AddParameterValue("@CompanyID", CompanyID, SqlDbType.Int, cmd)
 
                         iRowsAffected = cmd.ExecuteNonQuery()

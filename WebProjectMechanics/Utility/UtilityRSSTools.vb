@@ -1,5 +1,5 @@
-Imports System.Xml
 Imports System.Text
+Imports System.Xml
 
 Public Class UtilityRSSTools
     Public Interface IRSSFeed
@@ -38,13 +38,13 @@ Public Class UtilityRSSTools
                 Try
                     Description = mychan("description").InnerText
                 Catch
-                    Description = ""
+                    Description = String.Empty
                 End Try
 
                 Try
                     Language = mychan("language").InnerText
                 Catch
-                    Language = ""
+                    Language = String.Empty
                 End Try
                 Try
                     Dim myimageinfo As XmlNode = mychan.SelectSingleNode("/rss/channel/image")
@@ -52,9 +52,9 @@ Public Class UtilityRSSTools
                     ImageLink = myimageinfo("link").InnerText
                     ImageURL = myimageinfo("url").InnerText
                 Catch
-                    ImageTitle = ""
-                    ImageLink = ""
-                    ImageURL = ""
+                    ImageTitle = String.Empty
+                    ImageLink = String.Empty
+                    ImageURL = String.Empty
                 End Try
 
                 Dim myitems As XmlNodeList = mydoc.SelectNodes("/rss/channel/item")
@@ -66,36 +66,36 @@ Public Class UtilityRSSTools
                     Try
                         newitem.pubDate = myitem("pubDate").InnerText
                     Catch
-                        newitem.pubDate = ""
+                        newitem.pubDate = String.Empty
                     End Try
                     Try
                         newitem.author = myitem("author").InnerText
                     Catch
-                        newitem.author = ""
+                        newitem.author = String.Empty
                     End Try
                     Try
                         newitem.Category = myitem("category").InnerText
                     Catch
-                        newitem.Category = ""
+                        newitem.Category = String.Empty
                     End Try
                     Try
                         newitem.Comments = myitem("comments").InnerText
                     Catch
-                        newitem.Comments = ""
+                        newitem.Comments = String.Empty
                     End Try
                     Try
                         newitem.content = myitem("content").InnerText
                     Catch
-                        newitem.content = ""
+                        newitem.content = String.Empty
                     End Try
                     Try
                         newitem.thumbnailURL = myitem("media:thumbnail").Attributes("url").InnerText
                         newitem.thumbnailHeight = myitem("media:thumbnail").Attributes("height").InnerText
                         newitem.thumbnailWidth = myitem("media:thumbnail").Attributes("width").InnerText
                     Catch
-                        newitem.thumbnailURL = ""
-                        newitem.thumbnailHeight = ""
-                        newitem.thumbnailWidth = ""
+                        newitem.thumbnailURL = String.Empty
+                        newitem.thumbnailHeight = String.Empty
+                        newitem.thumbnailWidth = String.Empty
                     End Try
 
                     Try
@@ -105,24 +105,24 @@ Public Class UtilityRSSTools
                         newitem.mediaContent_Type = myitem("media:content").Attributes("type").InnerText
 
                     Catch
-                        newitem.mediaContent_URL = ""
-                        newitem.mediaContent_Height = ""
-                        newitem.mediaContent_Width = ""
-                        newitem.mediaContent_Type = ""
+                        newitem.mediaContent_URL = String.Empty
+                        newitem.mediaContent_Height = String.Empty
+                        newitem.mediaContent_Width = String.Empty
+                        newitem.mediaContent_Type = String.Empty
                     End Try
 
 
                     Try
                         newitem.Description = myitem("description").InnerText
                     Catch
-                        newitem.Description = ""
+                        newitem.Description = String.Empty
                     End Try
 
                     Try
                         newitem.Enclosure = myenclos("enclosure").Attributes("url").InnerText
                         newitem.HasEnclosure = True
                     Catch ex As Exception
-                        newitem.Enclosure = ""
+                        newitem.Enclosure = String.Empty
                         newitem.HasEnclosure = False
                     End Try
 
@@ -201,7 +201,7 @@ Public Class UtilityRSSTools
             If FeedIsGood Then
                 For Each myitem As RSSItem In Items
                     sItem.Append(sbBlogTemplate.ToString)
-                    sItem.Replace("~~PostID~~", "")
+                    sItem.Replace("~~PostID~~", String.Empty)
                     sItem.Replace("~~PostDate~~", myitem.pubDate)
                     sItem.Replace("~~PostShortDate~~", myitem.pubDate)
                     sItem.Replace("~~PostURL~~", myitem.Link)
@@ -213,7 +213,7 @@ Public Class UtilityRSSTools
                     sItem.Replace("~~BlogPageURL~~", myitem.Link)
                     sItem.Replace("~~BlogPageName~~", myitem.Title)
                     sItem.Replace("~~PostAuthor~~", myitem.author)
-                    sItem.Replace("~~ArticleAdmin~~", "")
+                    sItem.Replace("~~ArticleAdmin~~", String.Empty)
                 Next
             End If
             Return sItem.ToString

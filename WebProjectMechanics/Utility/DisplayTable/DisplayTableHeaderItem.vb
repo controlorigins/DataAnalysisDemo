@@ -11,7 +11,7 @@
     Public Property DisplayFormat As DisplayFormat
 
     Public Function GetFormatTableCell(ByVal PropValue As String, ByVal LinkURL As String) As String
-        Dim myReturn As String = ""
+        Dim myReturn As String = String.Empty
         If IsNumeric(PropValue) Then
             Select Case DisplayFormat
                 Case DisplayFormat.Currency
@@ -38,7 +38,7 @@
         Return myReturn
     End Function
     Public Function GetFormatTableCell(ByVal PropValue As String) As String
-        Dim myReturn As String = ""
+        Dim myReturn As String = String.Empty
         If IsNumeric(PropValue) Then
             Select Case DisplayFormat
                 Case DisplayFormat.Currency

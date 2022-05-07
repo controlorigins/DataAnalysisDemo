@@ -1,9 +1,9 @@
 
-Imports System.Text
-Imports System.Reflection
-Imports System.Web.SessionState
 Imports System.ComponentModel
+Imports System.Reflection
+Imports System.Text
 Imports System.Web.Script.Serialization
+Imports System.Web.SessionState
 
 Partial Public MustInherit Class BaseHandler
     Implements IHttpHandler
@@ -221,7 +221,7 @@ Partial Public MustInherit Class BaseHandler
             sb.AppendLine("</td><td style=""border-left: 1px dashed #DCDCDC; padding-left: 8px;"">")
 
             Dim getJSONSample As String = String.Format("<pre>$.getJSON({0}{1}'{2}', {0}{1}{{method: ""{3}"", returntype: ""json"", args: {{", vbLf, vbTab, context.Request.Url.LocalPath, m.Name)
-            For Each p As ParameterInfo  In m.GetParameters()
+            For Each p As ParameterInfo In m.GetParameters()
                 getJSONSample += String.Format(" {0}: """",", p.Name)
             Next
             getJSONSample = getJSONSample.TrimEnd(","c) + " "

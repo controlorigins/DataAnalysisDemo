@@ -1,6 +1,6 @@
-Imports System.Xml
-Imports System.Text
 Imports System.IO
+Imports System.Text
+Imports System.Xml
 
 Public Class SiteMapXmlTextWriter
     Inherits XmlTextWriter

@@ -94,13 +94,13 @@ Public Class ApplicationPage
         If Not FileProcessing.VerifyFolderExists(wpm_SiteConfig.ConfigFolderPath & "form") Then
             FileProcessing.CreateFolder(wpm_SiteConfig.ConfigFolderPath & "form")
         End If
-        If Not FileProcessing.VerifyFolderExists(String.Format("{0}form\{1}", wpm_SiteConfig.ConfigFolderPath, Replace(HttpContext.Current.Request.ServerVariables.Item("SERVER_NAME"), "www.", ""))) Then
-            FileProcessing.CreateFolder(String.Format("{0}form\{1}", wpm_SiteConfig.ConfigFolderPath, Replace(HttpContext.Current.Request.ServerVariables.Item("SERVER_NAME"), "www.", "")))
+        If Not FileProcessing.VerifyFolderExists(String.Format("{0}form\{1}", wpm_SiteConfig.ConfigFolderPath, Replace(HttpContext.Current.Request.ServerVariables.Item("SERVER_NAME"), "www.", String.Empty))) Then
+            FileProcessing.CreateFolder(String.Format("{0}form\{1}", wpm_SiteConfig.ConfigFolderPath, Replace(HttpContext.Current.Request.ServerVariables.Item("SERVER_NAME"), "www.", String.Empty)))
         End If
-        Return String.Format("{0}form\{1}\{2}", wpm_SiteConfig.ConfigFolderPath, Replace(HttpContext.Current.Request.ServerVariables.Item("SERVER_NAME"), "www.", ""), HTMLFileName)
+        Return String.Format("{0}form\{1}\{2}", wpm_SiteConfig.ConfigFolderPath, Replace(HttpContext.Current.Request.ServerVariables.Item("SERVER_NAME"), "www.", String.Empty), HTMLFileName)
     End Function
     Public Function SaveMailToFile(ByRef pageActiveSite As ActiveCompany, ByRef sOutFile As String) As Boolean
-        Dim filename As String = GetFormFilePath(Replace(Replace(Replace(String.Format("{0}-{1}", wpm_HostName, Format(System.DateTime.Now(), "yyyy:MM:dd:HH:mm:ss")), " ", "-"), ",", ""), ":", "-") & ".html")
+        Dim filename As String = GetFormFilePath(Replace(Replace(Replace(String.Format("{0}-{1}", wpm_HostName, Format(System.DateTime.Now(), "yyyy:MM:dd:HH:mm:ss")), " ", "-"), ",", String.Empty), ":", "-") & ".html")
         Return FileProcessing.CreateFile(filename, String.Format("{0}<br/><br/><hr/>Sent to:{1}<br/>", sOutFile, pageActiveSite.FromEmail))
     End Function
     Public Sub SetupDropdown(ByRef LookupItemList As List(Of LookupItem), ByRef cmb As DropDownList)
@@ -121,14 +121,14 @@ Public Class ApplicationPage
 
     Public Sub SetPageName(ByVal PageName As String)
         With masterPage.myCompany.CurLocation
-            .LocationTitle = PageName 
-            .LocationName = PageName 
-            .LocationSummary = PageName 
+            .LocationTitle = PageName
+            .LocationName = PageName
+            .LocationSummary = PageName
             .LocationID = String.Empty
             .HideGlobalContent = True
-            .MainMenuLocationName = PageName 
+            .MainMenuLocationName = PageName
             .RecordSource = "Page"
-            .SiteCategoryName = PageName 
+            .SiteCategoryName = PageName
         End With
     End Sub
 End Class

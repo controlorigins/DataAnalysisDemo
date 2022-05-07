@@ -7,7 +7,7 @@ Public Class PartDirectory
     Private ReadOnly RequestLID As String
     Private ReadOnly RequestAction As String
     Private ReadOnly bRequestSubmit As Boolean
-    Private errorMSG As String = ""
+    Private errorMSG As String = String.Empty
     Private ReadOnly ActiveCompany As ActiveCompany
     Private ReadOnly PartList As New PartList
     Private ReadOnly myPart As New Part()
@@ -18,14 +18,14 @@ Public Class PartDirectory
         ActiveCompany = thisCompany
         PartList.GetSiteCategoryTypeParts(wpm_CurrentSiteID, thisCompany.SiteCategoryTypeID)
 
-        RequestCID = wpm_GetProperty("cid", "")
-        RequestLID = wpm_GetProperty("id", "")
-        RequestAction = wpm_GetProperty("md", "")
-        ipage = Val(wpm_GetProperty("page", ""))
+        RequestCID = wpm_GetProperty("cid", String.Empty)
+        RequestLID = wpm_GetProperty("id", String.Empty)
+        RequestAction = wpm_GetProperty("md", String.Empty)
+        ipage = Val(wpm_GetProperty("page", String.Empty))
 
         ReturnURL = "/default.aspx?c=" & ActiveCompany.CurrentLocationID()
 
-        If wpm_GetProperty("submit", "") <> "" Then
+        If wpm_GetProperty("submit", String.Empty) <> String.Empty Then
             bRequestSubmit = True
             myPart.Title = wpm_FormatTextEntry(HttpContext.Current.Request("textname"))
             myPart.URL = wpm_FormatTextEntry(HttpContext.Current.Request("texturl"))
@@ -36,12 +36,12 @@ Public Class PartDirectory
             myPart.ModifiedDT = System.DateTime.Now()
         Else
             myPart.PartSortOrder = 0
-            myPart.AmazonIndex = ""
-            myPart.PartID = ""
-            myPart.Title = ""
-            myPart.Description = ""
-            myPart.PartTypeCD = ""
-            myPart.URL = ""
+            myPart.AmazonIndex = String.Empty
+            myPart.PartID = String.Empty
+            myPart.Title = String.Empty
+            myPart.Description = String.Empty
+            myPart.PartTypeCD = String.Empty
+            myPart.URL = String.Empty
             myPart.LocationID = ActiveCompany.CurrentLocationID()
             myPart.PartCategoryID = RequestCID
             myPart.ModifiedDT = System.DateTime.Now()
@@ -50,7 +50,7 @@ Public Class PartDirectory
         End If
     End Sub
     Sub CreateAdminPartDirectory()
-        Dim mySQL As String = ""
+        Dim mySQL As String = String.Empty
         Select Case RequestAction
             Case "add"
                 If bRequestSubmit Then
@@ -59,7 +59,7 @@ Public Class PartDirectory
                 DrawLinkEntryForm()
             Case "del"
                 If wpm_IsAdmin Then
-                    If RequestLID <> "" Then
+                    If RequestLID <> String.Empty Then
                         mySQL = String.Format("DELETE FROM Link WHERE ID={0} and CompanyID={1} ", RequestLID, wpm_CurrentSiteID)
                         wpm_RunDeleteSQL(mySQL, "wpmLinkDirectory.CreateAdminLinkDirectory")
                         HttpContext.Current.Response.Redirect(String.Format("{0}&cid={1}", ReturnURL, RequestCID))
@@ -77,7 +77,7 @@ Public Class PartDirectory
         End Select
     End Sub
     Sub CreateLinkDirectory()
-        Dim mySQL As String = ""
+        Dim mySQL As String = String.Empty
         Select Case RequestAction
             Case "add"
                 If bRequestSubmit Then
@@ -86,7 +86,7 @@ Public Class PartDirectory
                 DrawLinkEntryForm()
             Case "del"
                 If wpm_IsAdmin Then
-                    If RequestLID <> "" Then
+                    If RequestLID <> String.Empty Then
                         mySQL = String.Format("DELETE FROM Link WHERE ID={0} and CompanyID={1} ", RequestLID, wpm_CurrentSiteID)
                         wpm_RunDeleteSQL(mySQL, "wpmLinkDirectory.CreateLinkDirectory.Link")
                         HttpContext.Current.Response.Redirect(String.Format("{0}&cid={1}", ReturnURL, RequestCID))
@@ -188,7 +188,7 @@ Public Class PartDirectory
     ' ########################
     Private Function rootCategory() As Integer
         Dim iCategoryCount As Integer = 0
-        Dim sReturn As String = ("")
+        Dim sReturn As String = (String.Empty)
         For Each myCatrow As PartCategory In ActiveCompany.LinkCategoryList
             If myCatrow.LocationID = ActiveCompany.CurrentLocationID() Then
                 iCategoryCount = iCategoryCount + 1
@@ -198,7 +198,7 @@ Public Class PartDirectory
                 End If
             End If
         Next
-        If RequestCID <> "" Then
+        If RequestCID <> String.Empty Then
         End If
         sReturn = String.Format("<h2><A href=""{0}"">{1}</A> --> {2}</h2>", ReturnURL, ActiveCompany.CurrentLocationNM(), sReturn)
         ECHO(sReturn)
@@ -206,7 +206,7 @@ Public Class PartDirectory
     End Function
 
     Function ParentCategory(ByVal ParentID As String) As String
-        Dim pcReturn As String = ""
+        Dim pcReturn As String = String.Empty
         For Each myCatrow As PartCategory In ActiveCompany.LinkCategoryList
             If myCatrow.ID = ParentID Then
                 pcReturn = String.Format("<A href=""{0}&cid={1}"">{2}</A> > {3}", ReturnURL, myCatrow.ID, myCatrow.Name, pcReturn)
@@ -469,7 +469,7 @@ Public Class PartDirectory
     Private Function GetAmazonLinks() As String
         Dim j As Integer
         Dim i As Integer
-        Dim mySB As New StringBuilder("")
+        Dim mySB As New StringBuilder(String.Empty)
         For Each myPart As Part In PartList
             If Not IsNothing(myPart.LocationID) Or Not IsDBNull(myPart.LocationID) Then
                 If myPart.LocationID = ActiveCompany.CurrentLocationID() And myPart.PartCategoryID = RequestCID Then
@@ -495,7 +495,7 @@ Public Class PartDirectory
         Dim j As Integer = 0
         Dim i As Double = 0
         Dim iRecordCount As Integer = 0
-        Dim tPage As String = ""
+        Dim tPage As String = String.Empty
         Dim iLinkCount As Integer = 0
         If ipage = 0 Then
             ipage = 1
@@ -604,7 +604,7 @@ Public Class PartDirectory
         Next
 
         If iLinkCount = 1 Then
-            ECHO("")
+            ECHO(String.Empty)
         End If
         ECHO("</div><div class=""yui-u""><br/></div></div>")
 
@@ -631,12 +631,12 @@ Public Class PartDirectory
     Sub TopRatedLinks(ByVal cateID As Integer, ByVal CurrentPageID As Integer)
         Dim sbAmazonLinks As New StringBuilder
         Dim myDT As DataTable
-        Dim myASIN As String = ("")
-        Dim lID As String = ""
-        Dim ltitle As String = ""
-        Dim lURL As String = ""
-        Dim lranks As String = ""
-        Dim ldescription As String = ""
+        Dim myASIN As String = (String.Empty)
+        Dim lID As String = String.Empty
+        Dim ltitle As String = String.Empty
+        Dim lURL As String = String.Empty
+        Dim lranks As String = String.Empty
+        Dim ldescription As String = String.Empty
         Dim sqlwrk As String = (String.Format("SELECT id,title,url,ranks,description,asin FROM Link WHERE Views=YES and PageID={0} ORDER BY id DESC", CurrentPageID))
         '      Dim myRowCount As Integer = 0
         myDT = wpm_GetDataTable(sqlwrk, "TopRatedLinks")
@@ -644,7 +644,7 @@ Public Class PartDirectory
             For TopNumber As Integer = 0 To 15
                 myASIN = myDT.Rows.Item(TopNumber).Item("asin").ToString
                 lURL = myDT.Rows.Item(TopNumber).Item("url").ToString
-                If Trim(myDT.Rows.Item(TopNumber).Item("asin").ToString) <> "" Then
+                If Trim(myDT.Rows.Item(TopNumber).Item("asin").ToString) <> String.Empty Then
                     sbAmazonLinks.Append(String.Format("<a target=""_blank"" href=""http://www.amazon.com/exec/obidos/ASIN/{0}/thefrogsfolly-20?creative=327641&camp=14573&link_code=as1""><img border=""0"" src=""http://images.amazon.com/images/P/{0}.01.THUMBZZZ.jpg"" alt=""{1}""></a>", myASIN, lURL))
                 End If
             Next
@@ -652,7 +652,7 @@ Public Class PartDirectory
             For Each row As DataRow In myDT.Rows
                 myASIN = row.Item("asin").ToString
                 lURL = row.Item("url").ToString
-                If Trim(row.Item("asin").ToString) <> "" Then
+                If Trim(row.Item("asin").ToString) <> String.Empty Then
                     sbAmazonLinks.Append(String.Format("<a target=""_blank"" href=""http://www.amazon.com/exec/obidos/ASIN/{0}/thefrogsfolly-20?creative=327641&camp=14573&link_code=as1""><img border=""0"" src=""http://images.amazon.com/images/P/{0}.01.THUMBZZZ.jpg"" alt=""{1}""></a>", myASIN, lURL))
                 End If
             Next
@@ -736,7 +736,7 @@ Public Class PartDirectory
         ECHO("</SELECT>")
     End Sub
     Private Function AddNewLink(ByVal CompanyID As String) As String
-        If myPart.Title = "" Then
+        If myPart.Title = String.Empty Then
             errorMSG = String.Format("{0}Please insert link name.<br />", errorMSG)
         End If
         If Trim(myPart.AmazonIndex & "*") <> "*" Then
@@ -750,7 +750,7 @@ Public Class PartDirectory
         Else
             myPart.View = False
         End If
-        If errorMSG = "" Then
+        If errorMSG = String.Empty Then
             If Not CreateLink(myPart, CompanyID) Then
                 errorMSG = "Problem Saving New Link, Please contact system administrator."
             End If
@@ -822,7 +822,7 @@ Public Class PartDirectory
                 If Not IsDBNull(myPart.AmazonIndex) Then
                     myPart.URL = String.Format("http://www.amazon.com/exec/obidos/ASIN/{0}/thefrogsfolly-20?creative=327641&camp=14573&link_code=as1", myPart.AmazonIndex)
                 End If
-                If errorMSG = "" Then
+                If errorMSG = String.Empty Then
                     arrCat = Split(HttpContext.Current.Request("slist"), "~")
 
                     myPart.PartCategoryID = arrCat.GetValue(0).ToString

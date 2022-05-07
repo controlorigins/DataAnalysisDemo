@@ -25,9 +25,9 @@ Public Interface ISiteType
     Property SiteTypeID As String
     Property SiteTypeNM As String
     Property SiteTypeDS As String
-    Property SiteTypeComment As String 
-    Property SiteTypeFileName As String 
-    Property SiteTypeTransferURL As String 
+    Property SiteTypeComment As String
+    Property SiteTypeFileName As String
+    Property SiteTypeTransferURL As String
     Property ModifiedID As Integer
     Property ModifiedDT As DateTime
     Property DefaultSiteTypeLocationID As String

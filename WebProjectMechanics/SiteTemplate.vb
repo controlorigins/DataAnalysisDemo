@@ -4,10 +4,10 @@ Imports System.Text
 Public Class SiteTemplate
     Implements ISiteTemplate
     Sub New()
-        TemplateBottom = ""
-        TemplateName = ""
-        TemplatePrefix = ""
-        TemplateTop = ""
+        TemplateBottom = String.Empty
+        TemplateName = String.Empty
+        TemplatePrefix = String.Empty
+        TemplateTop = String.Empty
     End Sub
 
     Public Property TemplateBottom As String Implements ISiteTemplate.TemplateBottom
@@ -21,7 +21,7 @@ Public Class SiteTemplate
         If UseDefault Then
             sbSiteTemplate = GetTemplateFile(wpm_HostName, wpm_DefaultSitePrefix)
         Else
-            If wpm_SiteTemplatePrefix = "" Then
+            If wpm_SiteTemplatePrefix = String.Empty Then
                 sbSiteTemplate = GetTemplateFile(wpm_HostName, passedSiteMap.SitePrefix)
             Else
                 sbSiteTemplate = GetTemplateFile(wpm_HostName, wpm_SiteTemplatePrefix)
@@ -30,7 +30,7 @@ Public Class SiteTemplate
     End Sub
     Public Sub New(ByVal UseDefault As Boolean, ByVal TemplatePrefix As String)
         MyBase.New()
-        If TemplatePrefix = "" Then
+        If TemplatePrefix = String.Empty Then
             TemplatePrefix = wpm_SiteTemplatePrefix
         End If
         If UseDefault Then

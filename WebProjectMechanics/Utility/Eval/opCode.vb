@@ -327,7 +327,7 @@ Friend Class opCodeBinary
 
         If mValueDelegate Is Nothing Then
             tokenizer.RaiseError( _
-                "Cannot apply the operator " & tt.ToString.Replace("operator_", "") & _
+                "Cannot apply the operator " & tt.ToString.Replace("operator_", String.Empty) & _
                 " on " & v1Type.ToString & _
                 " and " & v2Type.ToString)
         End If

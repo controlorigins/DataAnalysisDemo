@@ -153,7 +153,7 @@ Public Class LocationHistorySession
         body.Append("<br><table style='font-size:8pt; font-family:Verdana;'>")
         If Not IsNothing(LocationHistory) Then
             Dim pti As LocationHistory
-            Dim lastPage As String = ""
+            Dim lastPage As String = String.Empty
             body.Append(String.Format("<tr><td><b>Visited Pages Count:</b></td><td>{0}</td></tr>{1}", LocationHistory.Count, vbCrLf))
             'line
             body.Append("<tr height=1 bgcolor=#CCCCCC><td></td><td></td></tr>" & vbCrLf)

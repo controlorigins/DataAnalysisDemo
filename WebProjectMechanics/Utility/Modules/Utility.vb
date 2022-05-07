@@ -12,23 +12,23 @@ Public Module Utility
         Else
             ' To Make this Easier, let's ignore case and spaces and apmersands and dashes
             StringOne = (StringOne.ToLower)
-            StringOne = Replace(StringOne, "/", "")
-            StringOne = Replace(StringOne, ".html", "")
-            StringOne = Replace(StringOne, ".htm", "")
+            StringOne = Replace(StringOne, "/", String.Empty)
+            StringOne = Replace(StringOne, ".html", String.Empty)
+            StringOne = Replace(StringOne, ".htm", String.Empty)
             StringOne = Replace(StringOne, "&amp;", "&")
-            StringOne = Replace(StringOne, "%20", "")
-            StringOne = Replace(StringOne, "-", "")
-            StringOne = Replace(StringOne, " ", "")
-            StringOne = Replace(StringOne, wpm_SiteConfig.DefaultExtension, "")
+            StringOne = Replace(StringOne, "%20", String.Empty)
+            StringOne = Replace(StringOne, "-", String.Empty)
+            StringOne = Replace(StringOne, " ", String.Empty)
+            StringOne = Replace(StringOne, wpm_SiteConfig.DefaultExtension, String.Empty)
             StringTwo = (StringTwo.ToLower)
-            StringTwo = Replace(StringTwo, "/", "")
-            StringTwo = Replace(StringTwo, ".html", "")
-            StringTwo = Replace(StringTwo, ".htm", "")
-            StringTwo = Replace(StringTwo, "%20", "")
-            StringTwo = Replace(StringTwo, " ", "")
+            StringTwo = Replace(StringTwo, "/", String.Empty)
+            StringTwo = Replace(StringTwo, ".html", String.Empty)
+            StringTwo = Replace(StringTwo, ".htm", String.Empty)
+            StringTwo = Replace(StringTwo, "%20", String.Empty)
+            StringTwo = Replace(StringTwo, " ", String.Empty)
             StringTwo = Replace(StringTwo, "&amp;", "&")
-            StringTwo = Replace(StringTwo, "-", "")
-            StringTwo = Replace(StringTwo, wpm_SiteConfig.DefaultExtension, "")
+            StringTwo = Replace(StringTwo, "-", String.Empty)
+            StringTwo = Replace(StringTwo, wpm_SiteConfig.DefaultExtension, String.Empty)
             If (StringOne = StringTwo) Then
                 bMatch = True
             Else
@@ -47,8 +47,8 @@ Public Module Utility
         Return sbReturn.ToString
     End Function
     Public Function wpm_ClearLineFeeds(ByVal sTextToCovert As String) As String
-        sTextToCovert = sTextToCovert.Replace(vbCrLf, "")
-        sTextToCovert = sTextToCovert.Replace(vbLf, "")
+        sTextToCovert = sTextToCovert.Replace(vbCrLf, String.Empty)
+        sTextToCovert = sTextToCovert.Replace(vbLf, String.Empty)
         Return sTextToCovert
     End Function
     Public Function wpm_RemoveInvalidCharacters(ByVal Value As String) As String
@@ -56,32 +56,32 @@ Public Module Utility
             Value = String.Empty
         Else
             Value = (Trim(Value.ToLower))
-            Value = Value.Replace( " & ", String.Empty)
-            Value = Value.Replace( "&", String.Empty)
-            Value = Value.Replace( " | ", String.Empty)
-            Value = Value.Replace( "|", String.Empty)
-            Value = Value.Replace( ",", String.Empty)
-            Value = Value.Replace( "/", String.Empty)
-            Value = Value.Replace( "\", String.Empty)
-            Value = Value.Replace( "<", String.Empty)
-            Value = Value.Replace( ">", String.Empty)
-            Value = Value.Replace( "(", String.Empty)
-            Value = Value.Replace( ")", String.Empty)
-            Value = Value.Replace( "{", String.Empty)
-            Value = Value.Replace( "}", String.Empty)
-            Value = Value.Replace( "[", String.Empty)
-            Value = Value.Replace( "]", String.Empty)
-            Value = Value.Replace( ",", String.Empty)
-            Value = Value.Replace( "'", String.Empty)
-            Value = Value.Replace( ";", String.Empty)
-            Value = Value.Replace( ":", String.Empty)
-            Value = Value.Replace( "-", String.Empty)
-            Value = Value.Replace( ".", String.Empty)
-            Value = Value.Replace( "http", String.Empty)
-            Value = Value.Replace( " ", String.Empty)
-            Value = Value.Replace( "?", String.Empty)
-            Value = Value.Replace( "%22", String.Empty)
-            Value = Value.Replace( "=", String.Empty)
+            Value = Value.Replace(" & ", String.Empty)
+            Value = Value.Replace("&", String.Empty)
+            Value = Value.Replace(" | ", String.Empty)
+            Value = Value.Replace("|", String.Empty)
+            Value = Value.Replace(",", String.Empty)
+            Value = Value.Replace("/", String.Empty)
+            Value = Value.Replace("\", String.Empty)
+            Value = Value.Replace("<", String.Empty)
+            Value = Value.Replace(">", String.Empty)
+            Value = Value.Replace("(", String.Empty)
+            Value = Value.Replace(")", String.Empty)
+            Value = Value.Replace("{", String.Empty)
+            Value = Value.Replace("}", String.Empty)
+            Value = Value.Replace("[", String.Empty)
+            Value = Value.Replace("]", String.Empty)
+            Value = Value.Replace(",", String.Empty)
+            Value = Value.Replace("'", String.Empty)
+            Value = Value.Replace(";", String.Empty)
+            Value = Value.Replace(":", String.Empty)
+            Value = Value.Replace("-", String.Empty)
+            Value = Value.Replace(".", String.Empty)
+            Value = Value.Replace("http", String.Empty)
+            Value = Value.Replace(" ", String.Empty)
+            Value = Value.Replace("?", String.Empty)
+            Value = Value.Replace("%22", String.Empty)
+            Value = Value.Replace("=", String.Empty)
         End If
         Return Value
     End Function
@@ -99,36 +99,36 @@ Public Module Utility
             Value = String.Empty
         Else
             Value = (Trim(Value.ToLower))
-            Value = value.Replace( " & ", "-and-")
-            Value = value.Replace( "&", "-and-")
-            Value = value.Replace( " | ", "-and-")
-            Value = value.Replace( "|", "-and-")
-            Value = value.Replace( ",", "-")
-            Value = value.Replace( "/", "-")
-            Value = value.Replace( "\", "-")
-            Value = value.Replace( "<", "-")
-            Value = value.Replace( ">", "-")
-            Value = value.Replace( "(", "-")
-            Value = value.Replace( ")", "-")
-            Value = value.Replace( "[", "-")
-            Value = value.Replace( "]", "-")
-            Value = value.Replace( "{", "-")
-            Value = value.Replace( "}", "-")
-            Value = value.Replace( ",", "-")
-            Value = value.Replace( "'", "-")
-            Value = value.Replace( ";", "-")
-            Value = value.Replace( ":", "-")
-            Value = value.Replace( " ", "-")
+            Value = value.Replace(" & ", "-and-")
+            Value = value.Replace("&", "-and-")
+            Value = value.Replace(" | ", "-and-")
+            Value = value.Replace("|", "-and-")
+            Value = value.Replace(",", "-")
+            Value = value.Replace("/", "-")
+            Value = value.Replace("\", "-")
+            Value = value.Replace("<", "-")
+            Value = value.Replace(">", "-")
+            Value = value.Replace("(", "-")
+            Value = value.Replace(")", "-")
+            Value = value.Replace("[", "-")
+            Value = value.Replace("]", "-")
+            Value = value.Replace("{", "-")
+            Value = value.Replace("}", "-")
+            Value = value.Replace(",", "-")
+            Value = value.Replace("'", "-")
+            Value = value.Replace(";", "-")
+            Value = value.Replace(":", "-")
+            Value = value.Replace(" ", "-")
             Value = value.Replace(vbCr, " ")
-            Value = value.Replace(vbLf," ")
+            Value = value.Replace(vbLf, " ")
         End If
         Return Value
     End Function
     Public Function wpm_RemoveHtml(ByVal sContent As String) As String
-        Return Regex.Replace(sContent, "<[^>]*>", "")
+        Return Regex.Replace(sContent, "<[^>]*>", String.Empty)
     End Function
     Public Function wpm_RemoveTags(ByVal sContent As String) As String
-        Return Regex.Replace(sContent, "~~(.|\n)+?~~", "")
+        Return Regex.Replace(sContent, "~~(.|\n)+?~~", String.Empty)
     End Function
     Public Function wpm_FormatNameForURL(ByVal Name As String) As String
         Name = (Replace(Name.ToLower, " ", "-"))
@@ -142,7 +142,7 @@ Public Module Utility
         strInput = Replace(strInput, ",", "-")
         strInput = Replace(strInput, "'", "&quot;")
         strInput = Replace(strInput, """", "&quot;")
-        strInput = Replace(strInput, "~", "")
+        strInput = Replace(strInput, "~", String.Empty)
         '  strInput = Replace(strInput, " " , "_")
         Return strInput
     End Function
@@ -237,7 +237,7 @@ Public Module Utility
     Public Function wpm_GetDayOrdinal(ByVal intDay As Integer) As String
         ' Accepts a day of the month as an integer and returns the
         ' appropriate suffix
-        Dim strOrd As String = ("")
+        Dim strOrd As String = (String.Empty)
         Select Case intDay
             Case 1, 21, 31
                 strOrd = "st"
@@ -295,10 +295,10 @@ Public Module Utility
         On Error Resume Next
         Dim mySB As New StringBuilder(strFormat)
         Dim int12HourPart As New Integer
-        Dim str24HourPart As String = ("")
-        Dim strMinutePart As String = ("")
-        Dim strSecondPart As String = ("")
-        Dim strAMPM As String = ("")
+        Dim str24HourPart As String = (String.Empty)
+        Dim strMinutePart As String = (String.Empty)
+        Dim strSecondPart As String = (String.Empty)
+        Dim strAMPM As String = (String.Empty)
 
         ' Insert Month Numbers
         mySB.Replace("%m", DatePart("m", strDate).ToString)
@@ -356,7 +356,7 @@ Public Module Utility
 
         ' Insert Optional Minutes
         If CInt(strMinutePart) = 0 Then
-            mySB.Replace("%n", "")
+            mySB.Replace("%n", String.Empty)
         Else
             If CInt(strMinutePart) < 10 Then
                 strMinutePart = "0" & strMinutePart
@@ -432,8 +432,8 @@ Public Module Utility
         Return sReturn
     End Function
     Public Function wpm_FormatPageNameLink(ByVal sPageName As String) As String
-        Dim sReturn As String = ""
-        If Trim(sPageName) = "" Then
+        Dim sReturn As String = String.Empty
+        If Trim(sPageName) = String.Empty Then
             sReturn = "<a href=""/"">Home Page</a>"
         Else
             sReturn = String.Format("<a href=""{0}"">{1}</a>", wpm_FormatPageNameURL(sPageName), sPageName)
@@ -441,14 +441,14 @@ Public Module Utility
         Return (sReturn.ToLower)
     End Function
     Public Function wpm_FormatPageNameURL(ByVal sPageName As String) As String
-        If Trim(sPageName) = "" Then
+        If Trim(sPageName) = String.Empty Then
             Return "/"
         Else
             Return String.Format("/{0}{1}", wpm_FixInvalidCharacters(sPageName), wpm_SiteConfig.DefaultExtension())
         End If
     End Function
     Public Function wpm_FormatTextEntry(ByVal strEntry As String) As String
-        If strEntry = "" Then strEntry = " "
+        If strEntry = String.Empty Then strEntry = " "
         strEntry = Replace(strEntry, "'", "&#39;")
         Return strEntry
     End Function
@@ -579,7 +579,7 @@ Public Module Utility
                 Case "z"
                     pStrDate = Replace(pStrDate, "z", "1")
                 Case Else
-                    pStrDate = pStrDate & ""
+                    pStrDate = pStrDate & String.Empty
             End Select
         Next lObjMatch
         lObjRegExp = Nothing
@@ -602,7 +602,7 @@ Public Module Utility
         Return True
     End Function
     Public Function wpm_HexStringToColor(ByVal hex As String) As System.Drawing.Color
-        hex = hex.Replace("#", "")
+        hex = hex.Replace("#", String.Empty)
         If hex.Length <> 6 Then
             Throw New Exception(hex & " is not a valid 6-place hexadecimal color code.")
         End If
